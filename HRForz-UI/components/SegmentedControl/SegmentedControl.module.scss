@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+.control {
+  display: flex;
+  background: var(--ink-100);
+  padding: 4px;
+  border-radius: var(--r-sm);
+  gap: 4px;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    button {
+      cursor: not-allowed;
+    }
+  }
+
+  button {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    border-radius: var(--r-xs);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-600);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      color: var(--ink-900);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    &.active {
+      background: white;
+      color: var(--brand-600);
+      box-shadow: var(--shadow-sm);
+    }
+  }
+}

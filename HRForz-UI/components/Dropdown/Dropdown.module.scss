@@ -1,0 +1,38 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { position: relative; display: inline-flex; }
+.menu {
+  position: absolute; top: 100%; left: 0; margin-top: v.$space-1; min-width: 12rem;
+  background: v.$color-bg-surface; border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-lg; box-shadow: v.$shadow-lg; z-index: v.$z-dropdown;
+  padding: v.$space-1; animation: fadeIn v.$transition-fast forwards;
+  max-height: 20rem; overflow-y: auto;
+
+  &.right { left: auto; right: 0; }
+}
+.item {
+  @include m.reset-button;
+  display: flex; align-items: center; gap: v.$space-2; width: 100%; padding: v.$space-2 v.$space-3;
+  font-size: v.$font-size-sm; color: v.$color-text-primary; border-radius: v.$radius-md;
+  transition: background v.$transition-fast; text-align: left;
+  &:hover { background: v.$color-gray-50; }
+  &:focus-visible { @include m.focus-ring; outline-offset: -2px; }
+  &.danger { color: v.$color-error; &:hover { background: v.$color-error-light; } }
+  &:disabled { @include m.disabled-state; }
+}
+.itemIcon { flex-shrink: 0; display: flex; color: v.$color-text-secondary; .danger & { color: v.$color-error; } }
+.itemLabel { flex: 1; }
+.itemShortcut { font-size: v.$font-size-xs; color: v.$color-text-disabled; font-family: v.$font-family-mono; }
+.divider { height: 1px; background: v.$color-border-default; margin: v.$space-1 0; }
+.groupLabel {
+  padding: v.$space-1 v.$space-3; font-size: v.$font-size-xs; font-weight: v.$font-weight-semibold;
+  color: v.$color-text-secondary; text-transform: uppercase; letter-spacing: v.$letter-spacing-wide;
+}
+.submenuWrapper { position: relative; }
+.submenu {
+  position: absolute; left: 100%; top: 0; margin-left: v.$space-1; min-width: 10rem;
+  background: v.$color-bg-surface; border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-lg; box-shadow: v.$shadow-lg; padding: v.$space-1;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

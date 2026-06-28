@@ -1,0 +1,34 @@
+@use '../../../../styles/variables' as v;
+@use '../../../../styles/mixins' as m;
+
+.checkboxField {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-1;
+  cursor: pointer;
+
+  input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: v.$color-primary;
+    cursor: pointer;
+  }
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  font-size: v.$font-size-sm;
+  color: v.$color-gray-700;
+}
+
+.required {
+  color: v.$color-error;
+}
+
+.fieldError {
+  font-size: v.$font-size-xs;
+  color: v.$color-error;
+  margin-top: v.$space-1;
+}

@@ -1,0 +1,107 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: v.$radius-lg;
+}
+
+// Optional outer card frame — use when table is not already inside a <Card>
+.bordered {
+  border: 1px solid v.$color-border-default;
+  box-shadow: v.$shadow-xs;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: v.$font-family-sans;
+  font-size: v.$font-size-sm;  // 14px
+  font-feature-settings: "tnum";  // tabular numbers for data columns
+}
+
+// ── Header ──────────────────────────────────────────────────────────────────
+
+.thead {
+  background: v.$color-gray-50;
+}
+
+.th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-secondary;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px solid v.$color-border-default;   // ink-200 — stronger separator under header
+  white-space: nowrap;
+  user-select: none;
+
+  &:first-child { padding-left: v.$space-4; }
+  &:last-child  { padding-right: v.$space-4; }
+}
+
+.sortable {
+  cursor: pointer;
+  &:hover { color: v.$color-text-primary; }
+}
+
+.sortIcon {
+  display: inline-flex;
+  margin-left: v.$space-1;
+  vertical-align: middle;
+  color: v.$color-text-disabled;
+  &.active { color: v.$color-primary; }
+}
+
+// ── Body ────────────────────────────────────────────────────────────────────
+
+.td {
+  padding: 10px 12px;
+  border-bottom: 1px solid v.$color-gray-100;   // ink-100 — lighter row separator
+  color: v.$color-text-primary;
+  font-size: v.$font-size-sm;
+  vertical-align: middle;
+
+  &:first-child { padding-left: v.$space-4; }
+  &:last-child  { padding-right: v.$space-4; }
+}
+
+.tr {
+  transition: background v.$transition-fast;
+
+  &:last-child .td { border-bottom: none; }   // no border on last row
+
+  &.hoverable:hover .td { background: v.$color-gray-50; }
+  &.selectable { cursor: pointer; }
+  &.selected .td { background: v.$color-primary-light; }
+  &.striped:nth-child(even) .td { background: v.$color-gray-50; }
+}
+
+// ── Empty state ─────────────────────────────────────────────────────────────
+
+.empty {
+  padding: v.$space-12 v.$space-4;
+  text-align: center;
+  color: v.$color-text-secondary;
+}
+
+// ── Selection checkbox ───────────────────────────────────────────────────────
+
+.checkbox {
+  width: v.$space-4;
+  padding-left: v.$space-4;
+}
+
+// ── Table footer (pagination row) ────────────────────────────────────────────
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px v.$space-4;
+  border-top: 1px solid v.$color-border-default;
+  gap: v.$space-4;
+}

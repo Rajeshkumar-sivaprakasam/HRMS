@@ -1,0 +1,18 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.breadcrumb {
+  display: flex; align-items: center; flex-wrap: wrap; gap: v.$space-1;
+  font-family: v.$font-family-sans; font-size: v.$font-size-xs;
+  @include m.respond-to('sm') { font-size: v.$font-size-sm; gap: v.$space-2; }
+}
+.item { display: flex; align-items: center; gap: v.$space-1; }
+.link {
+  color: v.$color-text-secondary; text-decoration: none; transition: color v.$transition-fast; border-radius: v.$radius-sm;
+  padding: v.$space-1 v.$space-1;
+  &:hover { color: v.$color-primary; }
+  &:focus-visible { @include m.focus-ring; }
+}
+.current { color: v.$color-text-primary; font-weight: v.$font-weight-medium; padding: v.$space-1 v.$space-1; }
+.separator { color: v.$color-text-disabled; display: flex; align-items: center; user-select: none; }
+.truncated { @include m.truncate; max-width: 10rem; display: inline-block; vertical-align: middle; }

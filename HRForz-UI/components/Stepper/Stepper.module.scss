@@ -1,0 +1,139 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  font-family: v.$font-family-sans;
+
+  &.horizontal {
+    flex-direction: row;
+    align-items: flex-start;
+    // Force vertical layout on small screens
+    @include m.below('sm') {
+      flex-direction: column;
+    }
+  }
+
+  &.vertical {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex: 1;
+
+  .horizontal & {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: v.$space-4;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: v.$color-gray-200;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    &.completed:not(:last-child)::after { background: v.$color-primary; }
+
+    // On mobile, horizontal steps become vertical
+    @include m.below('sm') {
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      padding-bottom: v.$space-6;
+
+      &:not(:last-child)::after {
+        top: v.$space-8;
+        left: v.$space-4;
+        width: 2px;
+        height: calc(100% - v.$space-8);
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  .vertical & {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: v.$space-6;
+
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: v.$space-8;
+      left: v.$space-4;
+      width: 2px;
+      height: calc(100% - v.$space-8);
+      background: v.$color-gray-200;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    &.completed:not(:last-child)::after { background: v.$color-primary; }
+  }
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: v.$space-8;
+  height: v.$space-8;
+  border-radius: v.$radius-full;
+  background: v.$color-bg-surface;
+  border: 2px solid v.$color-gray-300;
+  color: v.$color-text-secondary;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-semibold;
+  z-index: 2;
+  flex-shrink: 0;
+  transition: all v.$transition-base;
+
+  .completed & { background: v.$color-primary; border-color: v.$color-primary; color: v.$color-white; }
+  .active &    { border-color: v.$color-primary; color: v.$color-primary; }
+  .error &     { border-color: v.$color-error;   color: v.$color-error; }
+}
+
+.content {
+  .horizontal & {
+    margin-top: v.$space-2;
+    padding: 0 v.$space-2;
+
+    @include m.below('sm') {
+      margin-top: 0;
+      margin-left: v.$space-4;
+      padding: v.$space-1 0 0;
+    }
+  }
+
+  .vertical & {
+    margin-left: v.$space-4;
+    padding-top: v.$space-1;
+  }
+}
+
+.title {
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-primary;
+
+  .active & { color: v.$color-primary; }
+  .error &  { color: v.$color-error; }
+}
+
+.description {
+  font-size: v.$font-size-xs;
+  color: v.$color-text-secondary;
+  margin-top: v.$space-1;
+  max-width: 12rem;
+}

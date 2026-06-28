@@ -1,0 +1,56 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px; font-family: v.$font-family-sans;
+  font-weight: v.$font-weight-semibold; border-radius: v.$radius-full; white-space: nowrap;
+  line-height: 1;
+
+  // Matches HRForz .chip sizing exactly
+  &.sm { padding: 2px 7px;  font-size: 11px; }
+  &.md { padding: 3px 9px;  font-size: 11.5px; }
+  &.lg { padding: 4px 11px; font-size: v.$font-size-sm; }
+
+  // Solid
+  &.solid {
+    &.neutral { background: v.$color-gray-200; color: v.$color-gray-700; }
+    &.success { background: v.$color-success; color: v.$color-white; }
+    &.warning { background: v.$color-warning; color: v.$color-white; }
+    &.error { background: v.$color-error; color: v.$color-white; }
+    &.info { background: v.$color-info; color: v.$color-white; }
+    &.primary { background: v.$color-primary; color: v.$color-primary-contrast; }
+    &.violet { background: v.$color-violet; color: v.$color-white; }
+    &.teal   { background: v.$color-teal;   color: v.$color-white; }
+    &.pink   { background: v.$color-pink;   color: v.$color-white; }
+    &.amber  { background: v.$color-warning; color: v.$color-white; }
+  }
+  // Outline
+  &.outline {
+    background: transparent; border: 1px solid;
+    &.neutral { border-color: v.$color-gray-300; color: v.$color-gray-700; }
+    &.success { border-color: v.$color-success; color: v.$color-success; }
+    &.warning { border-color: v.$color-warning; color: v.$color-warning; }
+    &.error { border-color: v.$color-error; color: v.$color-error; }
+    &.info { border-color: v.$color-info; color: v.$color-info; }
+    &.primary { border-color: v.$color-primary; color: v.$color-primary; }
+    &.violet { border-color: v.$color-violet; color: v.$color-violet; }
+    &.teal   { border-color: v.$color-teal;   color: v.$color-teal; }
+    &.pink   { border-color: v.$color-pink;   color: v.$color-pink; }
+    &.amber  { border-color: v.$color-warning-dark; color: v.$color-warning-dark; }
+  }
+  // Subtle
+  &.subtle {
+    &.neutral { background: v.$color-gray-100; color: v.$color-gray-700; }
+    &.success { background: v.$color-success-light; color: v.$color-success-text; }
+    &.warning { background: v.$color-warning-light; color: v.$color-warning-text; }
+    &.error { background: v.$color-error-light; color: v.$color-error-text; }
+    &.info { background: v.$color-info-light; color: v.$color-info-text; }
+    &.primary { background: v.$color-primary-light; color: v.$color-primary; }
+    &.violet { background: v.$color-violet-light; color: v.$color-violet; }
+    &.teal   { background: v.$color-teal-light;   color: v.$color-teal; }
+    &.pink   { background: v.$color-pink-light;   color: v.$color-pink; }
+    &.amber  { background: v.$color-warning-light; color: v.$color-warning-text; }
+  }
+}
+
+.dot { width: 6px; height: 6px; border-radius: v.$radius-full; background: currentColor; display: inline-block; }

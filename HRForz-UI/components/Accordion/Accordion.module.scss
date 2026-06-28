@@ -1,0 +1,62 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.accordion {
+  @include m.flex-col;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-lg;
+  overflow: hidden;
+}
+
+.item {
+  &:not(:last-child) {
+    border-bottom: 1px solid v.$color-border-default;
+  }
+}
+
+.trigger {
+  @include m.reset-button;
+  @include m.flex-between;
+  width: 100%;
+  padding: v.$space-3 v.$space-4;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-primary;
+  background: v.$color-bg-surface;
+  transition: background v.$transition-fast;
+  text-align: left;
+
+  @include m.respond-to('md') { padding: v.$space-4 v.$space-5; }
+
+  &:hover { background: v.$color-gray-50; }
+  &:focus-visible { @include m.focus-ring; outline-offset: -2px; }
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: v.$color-text-secondary;
+  transition: transform v.$transition-base;
+
+  &.open { transform: rotate(180deg); }
+}
+
+.panel {
+  overflow: hidden;
+  transition: max-height v.$transition-slow, padding v.$transition-slow;
+  max-height: 0;
+  padding: 0 v.$space-4;
+
+  @include m.respond-to('md') { padding: 0 v.$space-5; }
+
+  &.open {
+    max-height: 40rem;
+    padding: v.$space-3 v.$space-4 v.$space-4;
+    @include m.respond-to('md') { padding: v.$space-3 v.$space-5 v.$space-4; }
+  }
+}
+
+.content {
+  font-size: v.$font-size-sm;
+  color: v.$color-text-secondary;
+  line-height: v.$line-height-relaxed;
+}

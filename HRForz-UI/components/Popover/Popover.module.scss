@@ -1,0 +1,16 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { position: relative; display: inline-flex; }
+.content {
+  position: absolute; z-index: v.$z-popover; min-width: 16rem; padding: v.$space-4;
+  background: v.$color-bg-surface; border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-lg; box-shadow: v.$shadow-lg;
+  animation: fadeIn v.$transition-fast forwards;
+
+  &.top { bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: v.$space-2; }
+  &.bottom { top: 100%; left: 50%; transform: translateX(-50%); margin-top: v.$space-2; }
+  &.left { right: 100%; top: 50%; transform: translateY(-50%); margin-right: v.$space-2; }
+  &.right { left: 100%; top: 50%; transform: translateY(-50%); margin-left: v.$space-2; }
+}
+@keyframes fadeIn { from { opacity: 0; transform-origin: center; } to { opacity: 1; } }

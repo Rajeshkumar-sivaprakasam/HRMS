@@ -1,0 +1,7 @@
+@use '../../styles/variables' as v;
+
+.icon { display: inline-flex; vertical-align: middle; flex-shrink: 0; }
+
+.spin { animation: icon-spin 1s linear infinite; }
+
+@keyframes icon-spin { to { transform: rotate(360deg); } }

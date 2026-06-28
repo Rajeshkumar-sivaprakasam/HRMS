@@ -1,0 +1,152 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-6;
+}
+
+.pageHeader {
+  font-size: v.$font-size-2xl;
+  font-weight: v.$font-weight-bold;
+  color: v.$color-gray-900;
+  margin: 0;
+  line-height: v.$line-height-tight;
+}
+
+// ── Clickable cell ─────────────────────────────────────────────────────────────
+
+.cellLink {
+  @include m.reset-button;
+  color: v.$color-primary;
+  font-weight: v.$font-weight-semibold;
+  font-size: inherit;
+  text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+    color: v.$color-primary-hover;
+  }
+}
+
+// ── Sidebar: skeleton loader ───────────────────────────────────────────────────
+
+.skeletonList {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-6;
+}
+
+.skeletonField {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-2;
+}
+
+// ── Sidebar: view mode ─────────────────────────────────────────────────────────
+
+.viewMode {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-5;
+}
+
+.viewField {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-1;
+}
+
+.fieldLabel {
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-gray-700;
+  line-height: v.$line-height-normal;
+}
+
+.fieldValue {
+  font-size: v.$font-size-sm;
+  color: v.$color-gray-900;
+  line-height: v.$line-height-normal;
+  word-break: break-word;
+}
+
+// ── Sidebar: form mode ─────────────────────────────────────────────────────────
+
+.sidebarForm {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-5;
+  height: 100%;
+}
+
+.checkboxField {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-1;
+  cursor: pointer;
+
+  input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: v.$color-primary;
+    cursor: pointer;
+  }
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  font-size: v.$font-size-sm;
+  color: v.$color-gray-700;
+}
+
+.required {
+  color: v.$color-error;
+}
+
+.fieldError {
+  font-size: v.$font-size-xs;
+  color: v.$color-error;
+  margin-top: v.$space-1;
+}
+
+// ── Rejected info box ──────────────────────────────────────────────────────────
+
+.rejectedInfo {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-4;
+  padding: v.$space-4;
+  border-radius: v.$radius-sm;
+  background-color: v.$color-gray-50;
+  border: 1px solid v.$color-gray-200;
+}
+
+// ── Form action buttons ────────────────────────────────────────────────────────
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$space-3;
+  margin-top: auto;
+  padding-top: v.$space-4;
+}
+
+// ── Checker confirmation dialog ────────────────────────────────────────────────
+
+.checkerDialog {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-5;
+}
+
+.checkerMessage {
+  font-size: v.$font-size-base;
+  color: v.$color-gray-700;
+  margin: 0;
+  line-height: v.$line-height-relaxed;
+  text-align: center;
+}

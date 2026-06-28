@@ -1,0 +1,76 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper {
+  @include m.flex-col;
+  gap: v.$space-2;
+  width: 100%;
+}
+
+.header {
+  @include m.flex-between;
+  font-family: v.$font-family-sans;
+  font-size: v.$font-size-sm;
+}
+
+.label {
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-primary;
+}
+
+.value {
+  color: v.$color-text-secondary;
+}
+
+.track {
+  width: 100%;
+  height: 6px;
+  background: v.$color-gray-200;
+  border-radius: v.$radius-full;
+  overflow: hidden;
+  position: relative;
+}
+
+.indicator {
+  height: 100%;
+  background: v.$color-primary;
+  border-radius: v.$radius-full;
+  transition: width v.$transition-base;
+  
+  &.striped {
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 1rem 1rem;
+    animation: strip 1s linear infinite;
+  }
+}
+
+.indeterminate {
+  width: 50%;
+  animation: indeterminate 1.5s ease-in-out infinite;
+}
+
+// Color variants on the fill element
+.green  { background: v.$color-success; }
+.amber  { background: v.$color-warning; }
+.red    { background: v.$color-error; }
+.violet { background: v.$color-violet; }
+.teal   { background: v.$color-teal; }
+
+@keyframes strip {
+  from { background-position: 1rem 0; }
+  to { background-position: 0 0; }
+}
+
+@keyframes indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}

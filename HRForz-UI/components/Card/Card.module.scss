@@ -1,0 +1,85 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+// ── Card shell ────────────────────────────────────────────────────────────
+
+.card {
+  background: v.$color-bg-surface;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-lg;     // 14px — matches HRForz --r-lg
+  padding: 18px;
+  box-shadow: v.$shadow-xs;
+  overflow: hidden;
+  font-family: v.$font-family-sans;
+  transition: box-shadow v.$transition-base, transform v.$transition-base;
+
+  &.hoverable {
+    cursor: default;
+    &:hover { box-shadow: v.$shadow-md; transform: translateY(-2px); }
+  }
+
+  &.clickable {
+    cursor: pointer;
+    &:hover { box-shadow: v.$shadow-md; transform: translateY(-2px); }
+    &:active { transform: translateY(0); }
+  }
+}
+
+// ── Image (full-bleed at top) ─────────────────────────────────────────────
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  // Pull image to card edges (card has overflow:hidden)
+  margin: -18px -18px 18px;
+  width: calc(100% + 36px);
+}
+
+// ── Header ────────────────────────────────────────────────────────────────
+// HRForz card-head: flex row, 12px bottom margin, no separator border
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.headerTitle {
+  font-size: 14px;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-primary;
+  letter-spacing: -0.005em;
+}
+
+.headerSubtitle {
+  font-size: v.$font-size-xs;
+  color: v.$color-text-secondary;
+  margin-top: v.$space-1;
+}
+
+.headerActions {
+  margin-left: auto;
+  display: flex;
+  gap: v.$space-2;
+  align-items: center;
+}
+
+// ── Body (optional explicit padding block) ────────────────────────────────
+// Card already has 18px padding; .body adds an inner block when needed.
+.body { display: block; }
+
+// ── Footer ────────────────────────────────────────────────────────────────
+
+.footer {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid v.$color-gray-100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: v.$space-2;
+}

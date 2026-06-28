@@ -1,0 +1,111 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.backdrop {
+  @include m.overlay-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn v.$transition-base forwards;
+  padding: v.$space-4;
+
+  // On mobile, align to bottom for sheet-style presentation
+  @include m.below('sm') {
+    align-items: flex-end;
+    padding: 0;
+  }
+}
+
+.modal {
+  position: relative;
+  background: v.$color-bg-surface;
+  border-radius: v.$radius-xl;
+  box-shadow: v.$shadow-xl;
+  z-index: v.$z-modal;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: scaleIn v.$transition-base forwards;
+
+  &.sm { width: 100%; max-width: 24rem; }
+  &.md { width: 100%; max-width: 32rem; }
+  &.lg { width: 100%; max-width: 48rem; }
+  &.fullscreen { width: 100%; max-width: 100%; height: 100%; max-height: 100%; border-radius: 0; }
+
+  // On mobile: full-width bottom sheet for sm/md, full-screen for lg
+  @include m.below('sm') {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92dvh;
+    border-radius: v.$radius-xl v.$radius-xl 0 0;
+    animation: slideUp v.$transition-slow forwards;
+
+    &.fullscreen { max-height: 100dvh; border-radius: 0; }
+  }
+}
+
+.header {
+  @include m.flex-between;
+  padding: v.$space-4 v.$space-4;
+  border-bottom: 1px solid v.$color-border-default;
+  flex-shrink: 0;
+  @include m.respond-to('md') { padding: v.$space-5 v.$space-6; }
+}
+
+.title {
+  font-size: v.$font-size-base;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-primary;
+  @include m.respond-to('md') { font-size: v.$font-size-lg; }
+}
+
+.close {
+  @include m.reset-button;
+  @include m.flex-center;
+  width: v.$space-8;
+  height: v.$space-8;
+  border-radius: v.$radius-md;
+  color: v.$color-text-secondary;
+  transition: all v.$transition-fast;
+
+  &:hover { background: v.$color-gray-100; color: v.$color-text-primary; }
+  &:focus-visible { @include m.focus-ring; }
+}
+
+.body {
+  padding: v.$space-4;
+  overflow-y: auto;
+  flex: 1;
+  @include m.respond-to('md') { padding: v.$space-6; }
+
+  // Modern scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: v.$color-gray-200;
+    border-radius: 10px;
+    
+    &:hover {
+      background: v.$color-gray-300;
+    }
+  }
+}
+
+.footer {
+  @include m.flex-between;
+  padding: v.$space-3 v.$space-4;
+  border-top: 1px solid v.$color-border-default;
+  gap: v.$space-3;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  @include m.respond-to('md') { padding: v.$space-4 v.$space-6; flex-wrap: nowrap; }
+}
+
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }

@@ -1,0 +1,36 @@
+.greetingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  .left {
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+      display: flex;
+      align-items: center;
+
+      .emoji {
+        margin-left: 8px;
+      }
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin: 0;
+    }
+  }
+
+}
+
+@media (max-width: 768px) {
+  .greetingContainer {
+    flex-direction: column;
+    gap: 16px;
+
+  }
+}

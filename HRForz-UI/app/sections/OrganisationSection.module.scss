@@ -1,0 +1,321 @@
+@use '../../styles/variables' as v;
+
+// ─── Page layout ──────────────────────────────────────────────────────────────
+
+.page {
+  display:        flex;
+  flex-direction: column;
+  gap:            v.$space-5;
+}
+
+.pageHeader {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             v.$space-4;
+}
+
+.pageTitle {
+  font-size:   v.$font-size-2xl;
+  margin:      0 0 v.$space-1;
+  line-height: v.$line-height-tight;
+}
+
+.pageSubtitle {
+  margin: 0;
+}
+
+.pageActions {
+  display:     flex;
+  align-items: center;
+  gap:         v.$space-3;
+  flex-shrink: 0;
+}
+
+// ─── Org chart card ───────────────────────────────────────────────────────────
+
+.chartCard {
+  background:    var(--surface);
+  border-radius: v.$radius-xl;
+  border:        1px solid var(--ink-100);
+  box-shadow:    v.$shadow-sm;
+  padding:       v.$space-8 v.$space-6;
+}
+
+.chartScroll {
+  overflow-x: auto;
+  overflow-y: visible;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background:    var(--ink-50);
+    border-radius: v.$radius-full;
+  }
+  &::-webkit-scrollbar-thumb {
+    background:    var(--ink-200);
+    border-radius: v.$radius-full;
+  }
+}
+
+.chartContent {
+  display:         flex;
+  justify-content: center;
+  min-width:       fit-content;
+  padding-bottom:  v.$space-2;
+}
+
+// ─── Tree node ────────────────────────────────────────────────────────────────
+
+.treeNode {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+}
+
+// CEO card — brand coloured
+.nodeCardCeo {
+  display:       flex;
+  align-items:   center;
+  gap:           v.$space-3;
+  background:    v.$color-primary;
+  border-radius: v.$radius-lg;
+  padding:       v.$space-3 v.$space-4;
+  min-width:     180px;
+  box-shadow:    v.$shadow-md;
+
+  .nodeName { font-size: v.$font-size-sm; }
+  .nodeMeta { font-size: v.$font-size-xs; }
+}
+
+// Regular node card
+.nodeCard {
+  display:       flex;
+  align-items:   center;
+  gap:           v.$space-3;
+  background:    var(--surface);
+  border:        1px solid var(--ink-100);
+  border-radius: v.$radius-lg;
+  padding:       v.$space-3 v.$space-4;
+  min-width:     160px;
+  box-shadow:    v.$shadow-xs;
+  transition:    box-shadow v.$transition-fast, border-color v.$transition-fast;
+
+  &:hover {
+    border-color: var(--brand-300);
+    box-shadow:   v.$shadow-sm;
+  }
+
+  .nodeName { font-size: v.$font-size-sm; }
+  .nodeMeta { font-size: v.$font-size-xs; }
+}
+
+// Avatar circle inside node cards
+.nodeAvatar {
+  width:           36px;
+  height:          36px;
+  border-radius:   v.$radius-full;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       v.$font-size-xs;
+  font-weight:     v.$font-weight-bold;
+  color:           #fff;
+  flex-shrink:     0;
+  letter-spacing:  0.5px;
+}
+
+.nodeInfo {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+}
+
+// ─── Tree connectors ──────────────────────────────────────────────────────────
+
+.connectorDown {
+  width:       1px;
+  height:      v.$space-6;
+  background:  var(--ink-200);
+  flex-shrink: 0;
+}
+
+.childrenRow {
+  display:     flex;
+  align-items: flex-start;
+}
+
+.childWrapper {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  position:       relative;
+  padding:        0 v.$space-3;
+
+  // Horizontal bar connecting siblings
+  &::before {
+    content:    '';
+    position:   absolute;
+    top:        0;
+    left:       0;
+    right:      0;
+    height:     1px;
+    background: var(--ink-200);
+  }
+
+  // First child: right half only
+  &:first-child::before {
+    left: 50%;
+  }
+
+  // Last child: left half only
+  &:last-child::before {
+    right: 50%;
+  }
+
+  // Single child: no horizontal bar
+  &:only-child::before {
+    display: none;
+  }
+}
+
+.connectorUp {
+  width:       1px;
+  height:      v.$space-6;
+  background:  var(--ink-200);
+  flex-shrink: 0;
+}
+
+// ─── Stats row ────────────────────────────────────────────────────────────────
+
+.statsRow {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   v.$space-5;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statsCard {
+  background:    var(--surface);
+  border-radius: v.$radius-xl;
+  border:        1px solid var(--ink-100);
+  box-shadow:    v.$shadow-sm;
+  padding:       v.$space-6;
+}
+
+.statsTitle {
+  font-size:   v.$font-size-base;
+  margin:      0 0 v.$space-5;
+  line-height: v.$line-height-tight;
+}
+
+// ─── Location list ────────────────────────────────────────────────────────────
+
+.locationList {
+  display:        flex;
+  flex-direction: column;
+  gap:            v.$space-4;
+}
+
+.locationRow {
+  display:        flex;
+  flex-direction: column;
+  gap:            v.$space-2;
+}
+
+.locationLabel {
+  display:     flex;
+  align-items: center;
+  gap:         v.$space-2;
+}
+
+.locationCity {
+  font-size: v.$font-size-sm;
+}
+
+.locationStats {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+}
+
+.locationCount {
+  font-size: v.$font-size-sm;
+}
+
+.locationPercent {
+  font-size: v.$font-size-sm;
+}
+
+.locationBar {
+  width: 100%;
+}
+
+// ─── Employment type mix ──────────────────────────────────────────────────────
+
+.employmentLayout {
+  display:     flex;
+  align-items: center;
+  gap:         v.$space-6;
+}
+
+.donutWrapper {
+  position:        relative;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.donutCenter {
+  position:        absolute;
+  inset:           0;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  pointer-events:  none;
+}
+
+.donutCount {
+  font-size:   v.$font-size-2xl;
+  line-height: 1;
+}
+
+.donutLabel {
+  font-size:  v.$font-size-xs;
+  margin-top: 2px;
+}
+
+.employmentLegend {
+  display:        flex;
+  flex-direction: column;
+  gap:            v.$space-3;
+  flex:           1;
+}
+
+.legendRow {
+  display:     flex;
+  align-items: center;
+  gap:         v.$space-2;
+}
+
+.legendDot {
+  width:         10px;
+  height:        10px;
+  border-radius: v.$radius-full;
+  flex-shrink:   0;
+}
+
+.legendLabel {
+  flex:      1;
+  font-size: v.$font-size-sm;
+}
+
+.legendValue {
+  font-size: v.$font-size-sm;
+}

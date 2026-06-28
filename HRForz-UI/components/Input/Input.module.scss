@@ -1,0 +1,108 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper {
+  @include m.flex-col;
+  gap: v.$space-1;
+  width: 100%;
+}
+
+.label {
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-primary;
+
+  .required & {
+    &::after {
+      content: ' *';
+      color: v.$color-error;
+    }
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  @include m.input-base;
+  padding: v.$space-2 v.$space-3;
+  height: v.$space-10;
+
+  &.sm { height: v.$space-8; font-size: v.$font-size-xs; }
+  &.lg { height: v.$space-12; font-size: v.$font-size-base; }
+  &.hasPrefix { padding-left: v.$space-10; }
+  &.hasSuffix { padding-right: v.$space-10; }
+
+  &.error {
+    border-color: v.$color-error;
+    &:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); }
+  }
+
+  /* Hide up/down arrows for number inputs */
+  &[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.prefix,
+.suffix {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: v.$color-text-secondary;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.prefix { left: v.$space-3; }
+.suffix { right: v.$space-3; pointer-events: auto; }
+
+.clearButton {
+  @include m.reset-button;
+  position: absolute;
+  right: v.$space-3;
+  top: 50%;
+  transform: translateY(-50%);
+  color: v.$color-text-disabled;
+  display: flex;
+  padding: v.$space-1;
+  border-radius: v.$radius-full;
+
+  &:hover { color: v.$color-text-secondary; background: v.$color-gray-100; }
+}
+
+.helperText {
+  font-size: v.$font-size-xs;
+  color: v.$color-text-secondary;
+}
+
+.errorText {
+  font-size: v.$font-size-xs;
+  color: v.$color-error;
+}
+
+.passwordToggle {
+  @include m.reset-button;
+  position: absolute;
+  right: v.$space-3;
+  top: 50%;
+  transform: translateY(-50%);
+  color: v.$color-text-secondary;
+  display: flex;
+  padding: v.$space-1;
+
+  &:hover { color: v.$color-text-primary; }
+}

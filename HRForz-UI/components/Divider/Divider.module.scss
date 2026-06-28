@@ -1,0 +1,41 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.divider {
+  border: none;
+  margin: 0;
+
+  &.horizontal {
+    width: 100%;
+    border-top: 1px solid v.$color-border-default;
+
+    &.withLabel {
+      display: flex;
+      align-items: center;
+      border: none;
+
+      &::before,
+      &::after {
+        content: '';
+        flex: 1;
+        border-top: 1px solid v.$color-border-default;
+      }
+    }
+  }
+
+  &.vertical {
+    display: inline-block;
+    width: 1px;
+    align-self: stretch;
+    min-height: v.$space-4;
+    background: v.$color-border-default;
+  }
+}
+
+.label {
+  padding: 0 v.$space-3;
+  font-size: v.$font-size-xs;
+  color: v.$color-text-secondary;
+  white-space: nowrap;
+  font-family: v.$font-family-sans;
+}

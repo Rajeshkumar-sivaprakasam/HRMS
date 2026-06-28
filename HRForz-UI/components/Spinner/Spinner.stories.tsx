@@ -1,0 +1,10 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Spinner } from './Spinner';
+const meta: Meta<typeof Spinner> = { title: 'Components/Spinner', component: Spinner, tags: ['autodocs'], argTypes: { size: { control: 'select', options: ['sm','md','lg','xl'] }, color: { control: 'select', options: ['primary','secondary','white','success','error'] } } };
+export default meta;
+type Story = StoryObj<typeof Spinner>;
+export const Default: Story = { args: {} };
+export const Small: Story = { args: { size: 'sm' } };
+export const Large: Story = { args: { size: 'lg' } };
+export const AllSizes: Story = { render: () => <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>{(['sm','md','lg','xl'] as const).map(s => <Spinner key={s} size={s} />)}</div> };
+export const AllColors: Story = { render: () => <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>{(['primary','secondary','success','error'] as const).map(c => <Spinner key={c} color={c} size="lg" />)}</div> };

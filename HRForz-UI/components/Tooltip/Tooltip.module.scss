@@ -1,0 +1,29 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { position: relative; display: inline-flex; }
+
+.tooltip {
+  position: absolute; z-index: v.$z-tooltip; padding: v.$space-1 v.$space-2;
+  background: v.$color-gray-900; color: v.$color-white; font-family: v.$font-family-sans;
+  font-size: v.$font-size-xs; border-radius: v.$radius-md; white-space: nowrap;
+  box-shadow: v.$shadow-md; pointer-events: none; animation: fadeIn v.$transition-fast forwards;
+  max-width: 20rem; line-height: v.$line-height-normal;
+
+  &.top { bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: v.$space-2; }
+  &.bottom { top: 100%; left: 50%; transform: translateX(-50%); margin-top: v.$space-2; }
+  &.left { right: 100%; top: 50%; transform: translateY(-50%); margin-right: v.$space-2; }
+  &.right { left: 100%; top: 50%; transform: translateY(-50%); margin-left: v.$space-2; }
+}
+
+.arrow {
+  position: absolute; width: v.$space-2; height: v.$space-2;
+  background: v.$color-gray-900; transform: rotate(45deg);
+
+  .top & { bottom: -0.25rem; left: 50%; transform: translateX(-50%) rotate(45deg); }
+  .bottom & { top: -0.25rem; left: 50%; transform: translateX(-50%) rotate(45deg); }
+  .left & { right: -0.25rem; top: 50%; transform: translateY(-50%) rotate(45deg); }
+  .right & { left: -0.25rem; top: 50%; transform: translateY(-50%) rotate(45deg); }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

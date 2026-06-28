@@ -1,0 +1,20 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.spinner {
+  display: inline-block; border-style: solid; border-color: v.$color-gray-200;
+  border-top-color: v.$color-primary; border-radius: v.$radius-full;
+  animation: spin 0.7s linear infinite;
+
+  &.sm { width: v.$space-4; height: v.$space-4; border-width: 2px; }
+  &.md { width: v.$space-6; height: v.$space-6; border-width: 2px; }
+  &.lg { width: v.$space-8; height: v.$space-8; border-width: 3px; }
+  &.xl { width: v.$space-12; height: v.$space-12; border-width: 3px; }
+
+  &.primary { border-top-color: v.$color-primary; }
+  &.secondary { border-top-color: v.$color-secondary; }
+  &.white { border-color: rgba(255,255,255,0.3); border-top-color: v.$color-white; }
+  &.success { border-top-color: v.$color-success; }
+  &.error { border-top-color: v.$color-error; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }

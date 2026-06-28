@@ -1,0 +1,110 @@
+.timePunchCard {
+  padding: 24px;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eef2f7;
+
+  .header {
+    margin-bottom: 16px;
+    .todayText {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  .mainInfo {
+    margin-bottom: 24px;
+
+    .clockContainer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+
+      .time {
+        font-size: 36px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      .statusBadge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #e8f8ee;
+        color: #15803d;
+        border: none;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 100px;
+
+        .dot {
+          width: 6px;
+          height: 6px;
+          background: #16a34a;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .workedInfo {
+      font-size: 14px;
+      color: #64748b;
+    }
+  }
+
+  .progressContainer {
+    margin-bottom: 32px;
+
+    .progressBar {
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 100px;
+      overflow: hidden;
+      width: 100%;
+
+      .progressFill {
+        height: 100%;
+        background: linear-gradient(90deg, #7c3aed, #c084fc);
+        border-radius: 100px;
+        transition: width 0.5s ease;
+      }
+    }
+  }
+
+  .footerActions {
+    display: flex;
+    gap: 12px;
+
+    button {
+      flex: 1;
+      height: 40px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .clockOutBtn {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: white;
+
+      &:hover {
+        background: #dc2626;
+      }
+    }
+
+    .regulariseBtn {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #334155;
+
+      &:hover {
+        background: #f1f5f9;
+      }
+    }
+  }
+}

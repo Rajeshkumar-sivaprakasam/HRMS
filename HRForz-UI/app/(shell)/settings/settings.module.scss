@@ -1,0 +1,129 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-6;
+  margin: 0 auto;
+}
+
+.header {
+  padding: v.$space-4 0;
+  border-bottom: 1px solid v.$color-border-default;
+  margin-bottom: v.$space-4;
+}
+
+.mainLayout {
+  display: flex;
+  gap: v.$space-8;
+  min-height: 700px;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-6;
+}
+
+.contentArea {
+  flex: 1;
+  min-width: 0;
+}
+
+.categoryGroup {
+  margin-bottom: v.$space-4;
+}
+
+.groupLabel {
+  display: block;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-bold;
+  color: v.$color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: v.$space-2 v.$space-4;
+  margin-bottom: v.$space-1;
+}
+
+.sideTab {
+  @include m.reset-button;
+  display: flex;
+  align-items: center;
+  gap: v.$space-3;
+  width: 100%;
+  padding: v.$space-3 v.$space-4;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-secondary;
+  border-radius: v.$radius-md;
+  transition: all v.$transition-fast;
+  text-align: left;
+
+  &:hover {
+    background: v.$color-gray-50;
+    color: v.$color-text-primary;
+  }
+
+  &.active {
+    background: v.$color-primary-light;
+    color: v.$color-primary;
+    font-weight: v.$font-weight-semibold;
+  }
+}
+
+.tableCard {
+  background: v.$color-bg-surface;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-xl;
+  box-shadow: v.$shadow-sm;
+  overflow: hidden;
+}
+
+.cardHeader {
+  padding: v.$space-6 v.$space-6 v.$space-2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardTitleArea {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-1;
+}
+
+.tableContainer {
+  padding: v.$space-4;
+}
+
+// Custom horizontal tabs styling
+.topNav {
+  display: flex;
+  gap: v.$space-1;
+  background: v.$color-gray-100;
+  padding: v.$space-1;
+  border-radius: v.$radius-lg;
+  width: fit-content;
+  margin-bottom: v.$space-6;
+}
+
+.navItem {
+  @include m.reset-button;
+  padding: v.$space-2 v.$space-6;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-secondary;
+  border-radius: v.$radius-md;
+  transition: all v.$transition-base;
+
+  &:hover { color: v.$color-text-primary; }
+
+  &.active {
+    background: v.$color-bg-surface;
+    color: v.$color-text-primary;
+    box-shadow: v.$shadow-sm;
+  }
+}

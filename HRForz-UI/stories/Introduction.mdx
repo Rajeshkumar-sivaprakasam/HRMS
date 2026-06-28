@@ -1,0 +1,41 @@
+<Meta title="Introduction" />
+
+# Next.js React Component Library
+
+Welcome to the component library! This is a production-ready, beautifully designed React component library tailored for Next.js applications using TypeScript and SCSS Modules.
+
+## Architecture & Principles
+
+1. **SCSS Modules for Scoping**: Every component uses `*.module.scss` for guaranteed local scoping, eliminating CSS conflicts.
+2. **Design Tokens**: All styling is driven by central design tokens (in `variables.scss`), ensuring perfect visual consistency.
+3. **Accessibility (a11y)**: Built with WAI-ARIA standards, including full keyboard navigation and screen reader support.
+4. **Server Components Compatibility**: Uses `'use client'` where React hooks are needed, ensuring compatibility with Next.js App Router.
+
+## Component Phases Completed
+
+- **Phase 1: Form Controls** - Button, Input, Textarea, Select, Checkbox, Radio, Toggle
+- **Phase 2: Display & Feedback** - Badge, Tag, Avatar, Alert, Toast, Spinner, Skeleton, ProgressBar, Stepper
+- **Phase 3: Layout & Containers** - Card, Modal, Drawer, Divider, Accordion
+- **Phase 4: Navigation** - Tabs, Breadcrumb, Navbar, Sidebar, Pagination
+- **Phase 5: Overlay** - Tooltip, Popover, Dropdown
+- **Phase 6: Data & Typography** - Table, Typography
+
+## Usage
+
+```tsx
+import { Button, Heading, Text } from '@/components';
+
+export default function App() {
+  return (
+    <div>
+      <Heading level="h1">Hello World</Heading>
+      <Text>Welcome to the application.</Text>
+      <Button variant="primary">Click Me</Button>
+    </div>
+  );
+}
+```
+
+## Styling & Theming
+
+To apply styles or adjust the theme, edit the design tokens inside `styles/variables.scss`. Thanks to the centralized configuration, updating a single token (e.g., `$color-primary`) instantly ripples through all 31 components.

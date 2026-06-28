@@ -1,0 +1,28 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { display: inline-flex; align-items: center; gap: v.$space-2; cursor: pointer; user-select: none;
+  &.disabled { @include m.disabled-state; }
+}
+.input { @include m.sr-only; }
+.track {
+  position: relative; border-radius: v.$radius-full; background: v.$color-gray-300;
+  transition: background v.$transition-base;
+  .input:checked + & { background: v.$color-primary; }
+  .input:focus-visible + & { @include m.focus-ring; }
+
+  &.sm { width: 2rem; height: 1.125rem; }
+  &.md { width: 2.75rem; height: v.$space-6; }
+  &.lg { width: 3.5rem; height: v.$space-8; }
+}
+.thumb {
+  position: absolute; top: 2px; left: 2px; border-radius: v.$radius-full; background: v.$color-white;
+  box-shadow: v.$shadow-sm; transition: transform v.$transition-base;
+
+  .sm & { width: 0.825rem; height: 0.825rem; }
+  .md & { width: 1.25rem; height: 1.25rem; }
+  .lg & { width: 1.75rem; height: 1.75rem; }
+
+  .input:checked ~ .track & { transform: translateX(100%); }
+}
+.label { font-size: v.$font-size-sm; color: v.$color-text-primary; }

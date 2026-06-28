@@ -1,0 +1,74 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.backdrop {
+  @include m.overlay-backdrop;
+  animation: fadeIn v.$transition-base forwards;
+}
+
+.drawer {
+  position: fixed;
+  z-index: v.$z-modal;
+  background: v.$color-bg-surface;
+  box-shadow: v.$shadow-xl;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &.left {
+    top: 0; left: 0; bottom: 0;
+    width: 20rem;
+    max-width: 90vw;
+    animation: slideFromLeft v.$transition-slow forwards;
+  }
+
+  &.right {
+    top: 0; right: 0; bottom: 0;
+    width: 20rem;
+    max-width: 90vw;
+    animation: slideFromRight v.$transition-slow forwards;
+  }
+
+  &.bottom {
+    bottom: 0; left: 0; right: 0;
+    max-height: 80vh;
+    border-radius: v.$radius-xl v.$radius-xl 0 0;
+    animation: slideFromBottom v.$transition-slow forwards;
+  }
+}
+
+.header {
+  @include m.flex-between;
+  padding: v.$space-4 v.$space-5;
+  border-bottom: 1px solid v.$color-border-default;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: v.$font-size-lg;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-primary;
+}
+
+.close {
+  @include m.reset-button;
+  @include m.flex-center;
+  width: v.$space-8;
+  height: v.$space-8;
+  border-radius: v.$radius-md;
+  color: v.$color-text-secondary;
+  transition: all v.$transition-fast;
+  &:hover { background: v.$color-gray-100; color: v.$color-text-primary; }
+  &:focus-visible { @include m.focus-ring; }
+}
+
+.body {
+  padding: v.$space-5;
+  overflow-y: auto;
+  flex: 1;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideFromLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes slideFromRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slideFromBottom { from { transform: translateY(100%); } to { transform: translateY(0); } }

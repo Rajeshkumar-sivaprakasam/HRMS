@@ -1,0 +1,35 @@
+@use 'variables' as v;
+
+// ─── Light Theme (default) ──────────────────────────────────────────────────
+
+$theme-light: (
+  'bg-page':        v.$color-bg-page,
+  'bg-surface':     v.$color-bg-surface,
+  'bg-elevated':    v.$color-bg-elevated,
+  'text-primary':   v.$color-text-primary,
+  'text-secondary': v.$color-text-secondary,
+  'border-default': v.$color-border-default,
+  'border-strong':  v.$color-border-strong,
+);
+
+// ─── Dark Theme ─────────────────────────────────────────────────────────────
+
+$theme-dark: (
+  'bg-page':        v.$color-gray-900,
+  'bg-surface':     v.$color-gray-800,
+  'bg-elevated':    v.$color-gray-700,
+  'text-primary':   v.$color-gray-50,
+  'text-secondary': v.$color-gray-400,
+  'border-default': v.$color-gray-700,
+  'border-strong':  v.$color-gray-600,
+);
+
+// ─── Theme Accessor Mixin ───────────────────────────────────────────────────
+
+@mixin themed($property, $key) {
+  #{$property}: map-get($theme-light, $key);
+
+  [data-theme='dark'] & {
+    #{$property}: map-get($theme-dark, $key);
+  }
+}

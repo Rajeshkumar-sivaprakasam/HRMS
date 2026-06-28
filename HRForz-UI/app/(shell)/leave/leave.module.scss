@@ -1,0 +1,528 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+
+  .titleSection {
+    h1 {
+      margin: 0 0 4px 0;
+      font-size: 28px;
+      font-weight: 600;
+      color: v.$color-text-primary;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: v.$color-text-secondary;
+    }
+  }
+}
+
+.balanceCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.balanceCard {
+  background: white;
+  border: 1px solid v.$color-border-default;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: v.$shadow-sm;
+
+  .leaveTypeLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: v.$color-text-secondary;
+    margin-bottom: 12px;
+  }
+
+  .balanceRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+
+    .balanceValue {
+      font-size: 28px;
+      font-weight: 700;
+      color: v.$color-text-primary;
+
+      .sub {
+        font-size: 14px;
+        font-weight: 500;
+        color: v.$color-text-secondary;
+        margin-left: 4px;
+      }
+    }
+
+    .statusText {
+      font-size: 12px;
+      color: v.$color-text-secondary;
+    }
+  }
+
+  .progressBarWrapper {
+    margin-bottom: 12px;
+  }
+
+  .progressLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: v.$color-text-secondary;
+    margin-bottom: 6px;
+  }
+}
+
+.contentArea {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.requestsCard {
+  background: white;
+  border: 1px solid v.$color-border-default;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: v.$shadow-sm;
+
+  .cardTitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: v.$color-text-primary;
+  }
+}
+
+.tabBar {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid v.$color-border-default;
+}
+
+.tabs {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 12px 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: v.$color-text-secondary;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: v.$color-text-primary;
+  }
+}
+
+.tabActive {
+  color: v.$color-primary;
+  border-bottom-color: v.$color-primary;
+}
+
+.requestsTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    padding: 12px 0;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: v.$color-text-secondary;
+    border-bottom: 1px solid v.$color-border-default;
+  }
+
+  td {
+    padding: 16px 0;
+    border-bottom: 1px solid v.$color-gray-100;
+    font-size: 14px;
+    color: v.$color-text-primary;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  tr:hover {
+    background: v.$color-gray-50;
+  }
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+
+  &.pending {
+    background: v.$color-warning-light;
+    color: v.$color-warning-text;
+  }
+
+  &.approved {
+    background: v.$color-success-light;
+    color: v.$color-success-text;
+  }
+
+  &.rejected {
+    background: v.$color-error-light;
+    color: v.$color-error-text;
+  }
+
+  &.cancelled {
+    background: v.$color-gray-100;
+    color: v.$color-gray-700;
+  }
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+
+  button {
+    padding: 4px 8px;
+    font-size: 12px;
+    color: v.$color-text-primary;
+    border: 1px solid v.$color-border-default;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: v.$color-gray-50;
+    }
+
+    &.danger {
+      color: v.$color-error;
+      border-color: v.$color-error;
+
+      &:hover {
+        background: v.$color-error-light;
+      }
+    }
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+
+  .emptyIcon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    margin: 0;
+    color: v.$color-text-secondary;
+    font-size: 14px;
+  }
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid v.$color-border-default;
+
+  .pageInfo {
+    font-size: 12px;
+    color: v.$color-text-secondary;
+  }
+
+  .pageControls {
+    display: flex;
+    gap: 8px;
+
+    button {
+      padding: 6px 10px;
+      font-size: 12px;
+      border: 1px solid v.$color-border-default;
+      background: white;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+
+      &:hover:not(:disabled) {
+        background: v.$color-gray-50;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.summaryPanel {
+  background: white;
+  border: 1px solid v.$color-border-default;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: v.$shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.summaryTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: v.$color-text-primary;
+  margin: 0;
+}
+
+.donutWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  .donutChart {
+    width: 120px;
+    height: 120px;
+  }
+
+  .summaryStats {
+    text-align: center;
+
+    .mainStat {
+      font-size: 28px;
+      font-weight: 700;
+      color: v.$color-text-primary;
+
+      .label {
+        font-size: 12px;
+        font-weight: 400;
+        color: v.$color-text-secondary;
+        display: block;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .statRow {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 16px;
+    border-top: 1px solid v.$color-border-default;
+
+    .stat {
+      text-align: center;
+
+      .value {
+        font-size: 20px;
+        font-weight: 700;
+        color: v.$color-text-primary;
+      }
+
+      .label {
+        font-size: 11px;
+        color: v.$color-text-secondary;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+.upcomingList {
+  .listTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: v.$color-text-primary;
+    margin: 0 0 16px 0;
+  }
+
+  .holidayItem {
+    padding: 12px 0;
+    border-bottom: 1px solid v.$color-gray-100;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .holidayName {
+      font-size: 13px;
+      font-weight: 500;
+      color: v.$color-text-primary;
+      margin: 0 0 4px 0;
+    }
+
+    .holidayDate {
+      font-size: 12px;
+      color: v.$color-text-secondary;
+      margin: 0;
+    }
+  }
+
+  .emptyMessage {
+    text-align: center;
+    padding: 20px;
+    color: v.$color-text-secondary;
+    font-size: 12px;
+  }
+}
+
+.hrTabBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  background: v.$color-gray-50;
+  padding: 8px;
+  border-radius: 8px;
+
+  .pillTab {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: v.$color-text-secondary;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &.active {
+      background: white;
+      color: v.$color-primary;
+      box-shadow: v.$shadow-sm;
+    }
+  }
+}
+
+.holidayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .filters {
+    display: flex;
+    gap: 12px;
+
+    input {
+      padding: 6px 12px;
+      border: 1px solid v.$color-border-default;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  }
+
+  button {
+    padding: 8px 16px;
+    border: none;
+    background: v.$color-primary;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.holidayTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    padding: 12px 0;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: v.$color-text-secondary;
+    border-bottom: 1px solid v.$color-border-default;
+  }
+
+  td {
+    padding: 16px 0;
+    border-bottom: 1px solid v.$color-gray-100;
+    font-size: 14px;
+    color: v.$color-text-primary;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      text-align: right;
+      padding-right: 0;
+    }
+  }
+
+  tr:hover {
+    background: v.$color-gray-50;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contentArea {
+    grid-template-columns: 1fr;
+  }
+
+  .balanceCardsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .pageHeader {
+    flex-direction: column;
+    gap: 16px;
+
+    .titleSection h1 {
+      font-size: 20px;
+    }
+  }
+
+  .balanceCardsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    gap: 16px;
+  }
+
+  .summaryPanel {
+    grid-column: 1;
+  }
+}

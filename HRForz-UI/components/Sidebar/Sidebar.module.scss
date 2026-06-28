@@ -1,0 +1,299 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+// ── Shell ──────────────────────────────────────────────────────────────────
+
+.sidebar {
+  @include m.flex-col;
+  width: 240px;
+  height: 100%;
+  background: v.$color-bg-surface;
+  border-right: 1px solid v.$color-border-default;
+  font-family: v.$font-family-sans;
+  transition: width v.$transition-base, transform v.$transition-base;
+  overflow: hidden;
+  flex-shrink: 0;
+  gap: 4px;
+  position: relative;
+
+  &.collapsed { width: 4rem; }
+
+  @include m.below('md') {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100dvh;
+    z-index: v.$z-modal;
+    box-shadow: v.$shadow-xl;
+    transform: translateX(0);
+    width: 240px !important;
+    &.collapsed { transform: translateX(-100%); }
+  }
+}
+
+.backdrop {
+  display: none;
+  @include m.below('md') {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: calc(v.$z-modal - 1);
+  }
+}
+
+// ── Brand ─────────────────────────────────────────────────────────────────
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 18px;
+  margin: 18px 14px 0;
+  flex-shrink: 0;
+
+  .collapsed & { justify-content: center; padding: 16px 0 18px; margin: 0 auto; }
+}
+
+.brandText {
+  flex: 1;
+  min-width: 0;
+  .collapsed & { display: none; }
+}
+
+.brandIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, v.$brand-500, v.$brand-700);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px -2px rgba(47, 109, 245, 0.5);
+}
+
+.brandName {
+  font-weight: 700;
+  font-size: 16px;
+  color: v.$color-text-primary;
+  letter-spacing: -0.01em;
+  @include m.truncate;
+  .collapsed & { display: none; }
+}
+
+.brandSub {
+  font-size: 11px;
+  color: v.$color-text-secondary;
+  margin-top: 1px;
+  .collapsed & { display: none; }
+}
+
+// ── Nav area ──────────────────────────────────────────────────────────────
+
+.nav {
+  @include m.flex-col;
+  gap: 2px;
+  padding: 0 14px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.navMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navBottom {
+  margin-top: auto;
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+// ── Section label ─────────────────────────────────────────────────────────
+
+.section {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: v.$color-text-disabled;
+  text-transform: uppercase;
+  padding: 14px 10px 6px;
+  flex-shrink: 0;
+
+  .collapsed & { display: none; }
+}
+
+// ── Nav item ──────────────────────────────────────────────────────────────
+
+.item {
+  @include m.reset-button;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  border-radius: v.$radius-sm;
+  transition: background v.$transition-fast, color v.$transition-fast;
+  text-decoration: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover { background: v.$color-gray-50; color: v.$color-text-primary; }
+
+  &.active {
+    background: v.$brand-50;
+    color: v.$brand-700;
+    font-weight: 600;
+
+    .itemIcon { color: v.$brand-600; }
+  }
+
+  &:focus-visible { @include m.focus-ring; }
+  .collapsed & { justify-content: center; padding: 8px; }
+}
+
+.itemIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: v.$color-text-secondary;
+  width: 17px;
+  height: 17px;
+}
+
+.itemLabel {
+  flex: 1;
+  @include m.truncate;
+  .collapsed & { display: none; }
+}
+
+.itemBadge {
+  margin-left: auto;
+  font-size: 11px;
+  background: v.$brand-500;
+  color: white;
+  padding: 1px 7px;
+  border-radius: v.$radius-full;
+  font-weight: 600;
+  flex-shrink: 0;
+  .collapsed & { display: none; }
+}
+
+.itemChevron {
+  margin-left: auto;
+  color: v.$color-text-disabled;
+  transition: transform v.$transition-fast;
+  flex-shrink: 0;
+  &.open { transform: rotate(90deg); }
+  .collapsed & { display: none; }
+}
+
+// ── Children (nested items) ───────────────────────────────────────────────
+
+.children {
+  @include m.flex-col;
+  gap: 2px;
+  padding-left: v.$space-8;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height v.$transition-slow;
+  &.open { max-height: 20rem; }
+}
+
+// ── Collapse toggle ───────────────────────────────────────────────────────
+
+.collapseBtn {
+  @include m.reset-button;
+  @include m.flex-center;
+  width: v.$space-8;
+  height: v.$space-8;
+  border-radius: v.$radius-sm;
+  color: v.$color-text-secondary;
+  transition: all v.$transition-fast;
+  flex-shrink: 0;
+  margin-left: auto;
+
+  &:hover { background: v.$color-gray-100; }
+
+  .collapsed & {
+    margin-left: 0;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    background: v.$color-bg-surface;
+    border: 1px solid v.$color-border-default;
+    box-shadow: v.$shadow-sm;
+    z-index: 10;
+  }
+}
+
+// ── Footer (user profile) ─────────────────────────────────────────────────
+
+.footer {
+  margin-top: auto;
+  padding: 14px 8px 10px;
+  margin-left: 14px;
+  margin-right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid v.$color-gray-100;
+  flex-shrink: 0;
+
+  .collapsed & { justify-content: center; margin: 0; padding: 14px 0; border-top: 1px solid v.$color-gray-100; }
+}
+
+.footerAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: v.$radius-full;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 12.5px;
+  flex-shrink: 0;
+  color: white;
+  background: linear-gradient(135deg, #ffd2a1, #f78e6f);  // c0 default
+}
+
+.footerName {
+  font-size: 13px;
+  font-weight: 600;
+  color: v.$color-text-primary;
+  @include m.truncate;
+  .collapsed & { display: none; }
+}
+
+.footerRole {
+  font-size: 11.5px;
+  color: v.$color-text-secondary;
+  @include m.truncate;
+  .collapsed & { display: none; }
+}
+
+// ── Legacy: plain header mode (no brand) ─────────────────────────────────
+
+.header {
+  @include m.flex-between;
+  padding: v.$space-4;
+  border-bottom: 1px solid v.$color-border-default;
+  flex-shrink: 0;
+}
+
+.logo {
+  font-weight: v.$font-weight-bold;
+  font-size: v.$font-size-base;
+  color: v.$color-text-primary;
+  @include m.truncate;
+}

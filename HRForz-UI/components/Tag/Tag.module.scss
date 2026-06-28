@@ -1,0 +1,24 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.tag {
+  display: inline-flex; align-items: center; gap: v.$space-1; padding: v.$space-1 v.$space-2;
+  font-family: v.$font-family-sans; font-size: v.$font-size-xs; font-weight: v.$font-weight-medium;
+  background: v.$color-gray-100; color: v.$color-text-primary; border-radius: v.$radius-md;
+  border: 1px solid v.$color-border-default; transition: all v.$transition-fast; line-height: 1;
+
+  &.clickable { cursor: pointer; &:hover { background: v.$color-gray-200; } }
+  &.primary { background: v.$color-primary-light; color: v.$color-primary; border-color: transparent; }
+  &.success { background: v.$color-success-light; color: v.$color-success-text; border-color: transparent; }
+  &.error { background: v.$color-error-light; color: v.$color-error-text; border-color: transparent; }
+  &.violet { background: v.$color-violet-light; color: v.$color-violet; border-color: transparent; }
+  &.teal   { background: v.$color-teal-light;   color: v.$color-teal; border-color: transparent; }
+  &.pink   { background: v.$color-pink-light;   color: v.$color-pink; border-color: transparent; }
+  &.amber  { background: v.$color-warning-light; color: v.$color-warning-text; border-color: transparent; }
+}
+.icon { display: flex; align-items: center; }
+.dismiss {
+  @include m.reset-button; display: flex; align-items: center; color: inherit; opacity: 0.6;
+  border-radius: v.$radius-sm; padding: 1px;
+  &:hover { opacity: 1; background: rgba(0,0,0,0.1); }
+}

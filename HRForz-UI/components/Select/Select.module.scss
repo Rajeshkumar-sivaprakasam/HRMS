@@ -1,0 +1,114 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { @include m.flex-col; gap: v.$space-1; width: 100%; position: relative; }
+.label { 
+  font-size: v.$font-size-sm; 
+  font-weight: v.$font-weight-medium; 
+  color: v.$color-text-primary; 
+
+  .required & {
+    &::after {
+      content: ' *';
+      color: v.$color-error;
+    }
+  }
+}
+
+.trigger {
+  @include m.input-base;
+  @include m.flex-between;
+  padding: v.$space-2 v.$space-3;
+  height: v.$space-10;
+  cursor: pointer;
+  user-select: none;
+
+  &.open { border-color: v.$color-border-focus; box-shadow: 0 0 0 3px rgba(47, 109, 245, 0.15); }
+  &.error { border-color: v.$color-error; }
+  &.disabled { @include m.disabled-state; background: v.$color-gray-50; }
+}
+
+.triggerText { @include m.truncate; flex: 1; text-align: left; }
+.placeholder { color: v.$color-text-disabled; }
+
+.chevron {
+  flex-shrink: 0;
+  color: v.$color-text-secondary;
+  transition: transform v.$transition-base;
+  &.rotated { transform: rotate(180deg); }
+}
+
+.clearBtn {
+  @include m.reset-button;
+  color: v.$color-text-disabled;
+  display: flex;
+  margin-right: v.$space-1;
+  &:hover { color: v.$color-text-secondary; }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: v.$space-1;
+  background: v.$color-bg-surface;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-md;
+  box-shadow: v.$shadow-lg;
+  z-index: v.$z-dropdown;
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.searchInput {
+  width: 100%;
+  padding: v.$space-2 v.$space-3;
+  border: none;
+  border-bottom: 1px solid v.$color-border-default;
+  font-size: v.$font-size-sm;
+  font-family: v.$font-family-sans;
+  color: v.$color-text-primary;
+  outline: none;
+  &::placeholder { color: v.$color-text-disabled; }
+}
+
+.optionGroup {
+  padding: v.$space-1 0;
+}
+
+.groupLabel {
+  padding: v.$space-1 v.$space-3;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: v.$letter-spacing-wide;
+}
+
+.option {
+  @include m.flex-between;
+  padding: v.$space-2 v.$space-3;
+  font-size: v.$font-size-sm;
+  color: v.$color-text-primary;
+  cursor: pointer;
+  transition: background v.$transition-fast;
+
+  &:hover, &.focused { background: v.$color-gray-50; }
+  &.selected { background: v.$color-primary-light; color: v.$color-primary; font-weight: v.$font-weight-medium; }
+  &.disabled { @include m.disabled-state; }
+}
+
+.checkmark { color: v.$color-primary; }
+.noOptions { padding: v.$space-4; text-align: center; color: v.$color-text-secondary; font-size: v.$font-size-sm; }
+
+.tags { display: flex; flex-wrap: wrap; gap: v.$space-1; }
+.tag {
+  display: inline-flex; align-items: center; gap: v.$space-1;
+  padding: v.$space-1 v.$space-2; background: v.$color-primary-light; color: v.$color-primary;
+  border-radius: v.$radius-sm; font-size: v.$font-size-xs;
+}
+.tagRemove { @include m.reset-button; display: flex; color: v.$color-primary; &:hover { color: v.$color-primary-hover; } }
+
+.helperText { font-size: v.$font-size-xs; color: v.$color-text-secondary; }
+.errorText { font-size: v.$font-size-xs; color: v.$color-error; }

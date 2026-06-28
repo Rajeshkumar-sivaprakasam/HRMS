@@ -1,0 +1,113 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.form {
+  @include m.flex-col;
+  gap: v.$space-6;
+}
+
+// ─── Responsive grid ──────────────────────────────────────────────────────────
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$space-4;
+  align-items: start;
+
+  @include m.respond-to('sm') {
+    grid-template-columns: repeat(var(--form-cols, 2), 1fr);
+    gap: v.$space-5 v.$space-6;
+  }
+}
+
+// On mobile all columns collapse to full width
+.col1, .col2, .col3, .col4, .colFull { grid-column: 1 / -1; }
+
+@include m.respond-to('sm') {
+  .col1    { grid-column: span 1; }
+  .col2    { grid-column: span min(2, var(--form-cols, 2)); }
+  .col3    { grid-column: span min(3, var(--form-cols, 2)); }
+  .col4    { grid-column: span min(4, var(--form-cols, 2)); }
+  .colFull { grid-column: 1 / -1; }
+}
+
+// ─── Field wrapper ────────────────────────────────────────────────────────────
+
+.fieldWrap {
+  @include m.flex-col;
+  gap: v.$space-1;
+}
+
+.helperText {
+  font-size: v.$font-size-xs;
+  color: v.$color-text-secondary;
+}
+
+.fieldError {
+  font-size: v.$font-size-xs;
+  color: v.$color-error;
+  display: flex;
+  align-items: center;
+  gap: v.$space-1;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: v.$color-error;
+    flex-shrink: 0;
+  }
+}
+
+// ─── Section dividers / headings ──────────────────────────────────────────────
+
+.sectionHeading {
+  margin: 0;
+  font-size: v.$font-size-base;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-primary;
+  padding-bottom: v.$space-2;
+  border-bottom: 2px solid v.$color-border-default;
+}
+
+.sectionSubheading {
+  margin: 0;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-secondary;
+}
+
+// ─── Fieldset (nested section) ────────────────────────────────────────────────
+
+.fieldset {
+  grid-column: 1 / -1;
+  @include m.card-base;
+  padding: v.$space-5;
+  @include m.flex-col;
+  gap: v.$space-5;
+}
+
+.fieldsetTitle {
+  margin: 0;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-primary;
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────────────
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$space-3;
+  padding-top: v.$space-2;
+  border-top: 1px solid v.$color-border-default;
+  flex-wrap: wrap;
+
+  @include m.below('sm') {
+    flex-direction: column-reverse;
+    > * { width: 100%; }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:localhost)",
+      "Bash(curl -s http://localhost:8000/openapi.json)",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s http://localhost:8000/docs)",
+      "Bash(curl -s \"http://localhost:8000/openapi.json\")",
+      "Bash(python -c ' *)",
+      "PowerShell($token = \\(curl.exe -s -X POST \"http://localhost:8000/v1/auth/login\" -H \"Content-Type: application/json\" -d '{\"email\":\"kavita.rao@hrforz.com\",\"password\":\"Employee@1234\"}' | ConvertFrom-Json\\).response.access_token; Write-Host \"Token obtained: $\\($token.Substring\\(0,20\\)\\)...\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { @include m.flex-col; gap: v.$space-1; width: 100%; position: relative; }
+.required { }
+
+.label {
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-primary;
+
+  .required & {
+    &::after {
+      content: ' *';
+      color: v.$color-error;
+    }
+  }
+}
+
+.control {
+  @include m.input-base;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: v.$space-1;
+  min-height: v.$space-10;
+  padding: v.$space-1 v.$space-2;
+  cursor: text;
+
+  &.open { border-color: v.$color-border-focus; box-shadow: 0 0 0 3px rgba(47, 109, 245, 0.15); }
+  &.error { border-color: v.$color-error; }
+  &.disabled { @include m.disabled-state; background: v.$color-gray-50; cursor: not-allowed; }
+}
+
+.input {
+  flex: 1;
+  min-width: 6rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: v.$font-family-sans;
+  font-size: v.$font-size-sm;
+  color: v.$color-text-primary;
+  padding: v.$space-1 v.$space-2;
+
+  &::placeholder { color: v.$color-text-disabled; }
+  &:disabled { cursor: not-allowed; }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-1;
+  padding: v.$space-1 v.$space-2;
+  background: v.$color-primary-light;
+  color: v.$color-primary;
+  border-radius: v.$radius-sm;
+  font-size: v.$font-size-xs;
+  max-width: 100%;
+}
+
+.tagRemove {
+  @include m.reset-button;
+  display: flex;
+  color: v.$color-primary;
+  &:hover { color: v.$color-primary-hover; }
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: v.$color-text-secondary;
+  transition: transform v.$transition-base;
+  display: flex;
+  margin-right: v.$space-1;
+  &.rotated { transform: rotate(180deg); }
+}
+
+.clearBtn {
+  @include m.reset-button;
+  display: flex;
+  color: v.$color-text-disabled;
+  margin-right: v.$space-1;
+  &:hover { color: v.$color-text-secondary; }
+}
+
+.spinner {
+  display: flex;
+  color: v.$color-text-secondary;
+  margin-right: v.$space-1;
+  animation: ac-spin 0.8s linear infinite;
+}
+
+@keyframes ac-spin { to { transform: rotate(360deg); } }
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: v.$space-1;
+  background: v.$color-bg-surface;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-md;
+  box-shadow: v.$shadow-lg;
+  z-index: v.$z-dropdown;
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.optionGroup { padding: v.$space-1 0; }
+
+.groupLabel {
+  padding: v.$space-1 v.$space-3;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-semibold;
+  color: v.$color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: v.$letter-spacing-wide;
+}
+
+.option {
+  @include m.flex-between;
+  padding: v.$space-2 v.$space-3;
+  font-size: v.$font-size-sm;
+  color: v.$color-text-primary;
+  cursor: pointer;
+  transition: background v.$transition-fast;
+
+  &:hover, &.focused { background: v.$color-gray-50; }
+  &.selected { background: v.$color-primary-light; color: v.$color-primary; font-weight: v.$font-weight-medium; }
+  &.disabled { @include m.disabled-state; }
+}
+
+.optionLabel { @include m.truncate; }
+.checkmark { color: v.$color-primary; flex-shrink: 0; }
+
+.statusRow {
+  padding: v.$space-4;
+  text-align: center;
+  color: v.$color-text-secondary;
+  font-size: v.$font-size-sm;
+}
+
+.helperText { font-size: v.$font-size-xs; color: v.$color-text-secondary; }
+.errorText { font-size: v.$font-size-xs; color: v.$color-error; }

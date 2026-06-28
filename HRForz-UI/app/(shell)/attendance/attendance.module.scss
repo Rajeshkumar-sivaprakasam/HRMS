@@ -1,0 +1,569 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-5;
+}
+
+// ── Page header ───────────────────────────────────────────────────────────────
+
+.pageHeader {
+  @include m.flex-between;
+  align-items: flex-start;
+}
+
+.pageTitle {
+  margin-bottom: 2px;
+}
+
+.pageSubtitle {
+  font-size: 13px;
+  color: v.$color-text-secondary;
+  margin: 0;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: v.$space-3;
+  flex-shrink: 0;
+}
+
+// ── Role tabs ─────────────────────────────────────────────────────────────────
+
+.tabs {
+  display: flex;
+  background: v.$color-gray-100;
+  border-radius: v.$radius-sm;
+  padding: 3px;
+  gap: 2px;
+}
+
+.tab {
+  @include m.reset-button;
+  padding: 5px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  transition: all v.$transition-fast;
+  cursor: pointer;
+
+  &:hover { color: v.$color-text-primary; }
+}
+
+.tabActive {
+  background: v.$color-white;
+  color: v.$color-text-primary;
+  font-weight: 600;
+  box-shadow: v.$shadow-xs;
+}
+
+// ── Action buttons ────────────────────────────────────────────────────────────
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+}
+
+.actionBtn {
+  @include m.reset-button;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-1;
+  padding: 6px 12px;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-xs;
+  font-size: 13px;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  background: v.$color-white;
+  cursor: pointer;
+  transition: all v.$transition-fast;
+
+  &:hover {
+    background: v.$color-gray-50;
+    color: v.$color-text-primary;
+  }
+}
+
+.actionBtnPrimary {
+  background: v.$color-violet;
+  border-color: v.$color-violet;
+  color: v.$color-white;
+
+  &:hover {
+    background: darken(#7c3aed, 6%);
+    border-color: darken(#7c3aed, 6%);
+    color: v.$color-white;
+  }
+}
+
+// ── Stat cards ────────────────────────────────────────────────────────────────
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: v.$space-4;
+
+  @include m.below('lg') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  padding: v.$space-5;
+}
+
+.statCardLabel {
+  font-size: 13px;
+  color: v.$color-text-secondary;
+  margin: 0 0 v.$space-2;
+}
+
+.statCardValue {
+  font-size: 28px;
+  font-weight: 700;
+  color: v.$color-text-primary;
+  line-height: 1.1;
+  margin: 0 0 v.$space-1;
+}
+
+.statCardSub {
+  font-size: 12px;
+  color: v.$color-text-secondary;
+  margin: 0;
+}
+
+.statCardSubSuccess { color: v.$color-success; }
+.statCardSubWarning { color: v.$color-warning-dark; }
+
+// ── Main two-column grid ──────────────────────────────────────────────────────
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 370px;
+  gap: v.$space-5;
+  align-items: start;
+
+  @include m.below('lg') {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Calendar card ─────────────────────────────────────────────────────────────
+
+.calCard {
+  padding: v.$space-5;
+}
+
+.calTabsBar {
+  display: flex;
+  border-bottom: 1px solid v.$color-border-default;
+  margin-bottom: v.$space-5;
+  gap: v.$space-1;
+}
+
+.calTabBtn {
+  @include m.reset-button;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-2;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: all v.$transition-fast;
+
+  &:hover { color: v.$color-text-primary; }
+}
+
+.calTabBtnActive {
+  color: v.$color-primary;
+  border-bottom-color: v.$color-primary;
+  font-weight: 600;
+}
+
+.calHeader {
+  @include m.flex-between;
+  margin-bottom: v.$space-4;
+}
+
+.navBtn {
+  @include m.reset-button;
+  width: 26px;
+  height: 26px;
+  border: 1px solid v.$color-border-default;
+  border-radius: v.$radius-xs;
+  @include m.flex-center;
+  color: v.$color-text-secondary;
+  cursor: pointer;
+  transition: all v.$transition-fast;
+
+  &:hover {
+    background: v.$color-gray-100;
+    color: v.$color-text-primary;
+  }
+}
+
+.dayRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: v.$space-1;
+}
+
+.dayHead {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  padding: v.$space-2 0;
+}
+
+.loadWrap {
+  @include m.flex-center;
+  height: 240px;
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.dayCell {
+  min-height: 76px;
+  border-radius: 8px;
+  padding: v.$space-2;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border: 1px solid v.$color-border-default;
+  background: v.$color-white;
+  box-sizing: border-box;
+}
+
+.today {
+  border-radius: 8px;
+}
+
+.dayNum {
+  font-size: 13px;
+  font-weight: 500;
+  color: v.$color-text-primary;
+  line-height: 1;
+}
+
+.cellSub {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.legend {
+  display: flex;
+  gap: v.$space-5;
+  margin-top: v.$space-4;
+  padding-top: v.$space-4;
+  border-top: 1px solid v.$color-border-default;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  font-size: 12px;
+  color: v.$color-text-secondary;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: v.$radius-full;
+  flex-shrink: 0;
+}
+
+// ── Recent log placeholder ────────────────────────────────────────────────────
+
+.logEmpty {
+  @include m.flex-center;
+  flex-direction: column;
+  height: 240px;
+  color: v.$color-text-secondary;
+  gap: v.$space-3;
+  font-size: 13px;
+}
+
+// ── Right column ──────────────────────────────────────────────────────────────
+
+.rightCol {
+  @include m.flex-col;
+  gap: v.$space-4;
+}
+
+// ── Today's session card ──────────────────────────────────────────────────────
+
+.sessionCard {
+  padding: v.$space-5;
+}
+
+.sessionSpinner {
+  @include m.flex-center;
+  height: 120px;
+}
+
+.sessionLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  margin: 0 0 v.$space-3;
+}
+
+.clockTime {
+  font-size: 34px;
+  font-weight: 700;
+  color: v.$color-text-primary;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: v.$space-2;
+}
+
+.clockSub {
+  font-size: 12px;
+  color: v.$color-text-secondary;
+  margin: 0 0 v.$space-3;
+}
+
+.progressTrack {
+  height: 6px;
+  background: v.$color-gray-100;
+  border-radius: v.$radius-full;
+  overflow: hidden;
+  margin-bottom: v.$space-4;
+}
+
+.progressFill {
+  height: 100%;
+  background: v.$color-gradient-primary;
+  border-radius: v.$radius-full;
+  transition: width 0.3s ease;
+}
+
+.clockBtn {
+  @include m.reset-button;
+  width: 100%;
+  height: 42px;
+  border-radius: v.$radius-sm;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  cursor: pointer;
+  transition: all v.$transition-base;
+  margin-bottom: v.$space-3;
+
+  &:disabled { @include m.disabled-state; }
+}
+
+.clockBtnIn {
+  background: v.$color-primary;
+  color: v.$color-white;
+  &:hover:not(:disabled) { background: v.$color-primary-hover; }
+}
+
+.clockBtnOut {
+  background: v.$color-error;
+  color: v.$color-white;
+  &:hover:not(:disabled) { background: v.$color-error-dark; }
+}
+
+.clockHint {
+  display: flex;
+  align-items: flex-start;
+  gap: v.$space-2;
+  font-size: 12px;
+  color: v.$color-text-secondary;
+  line-height: 1.55;
+}
+
+// ── This week card ────────────────────────────────────────────────────────────
+
+.weekCard {
+  padding: v.$space-5;
+}
+
+.statList {
+  @include m.flex-col;
+  gap: v.$space-4;
+  margin-top: v.$space-4;
+}
+
+.statRow {
+  @include m.flex-between;
+}
+
+.statRowLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: v.$color-text-primary;
+}
+
+.statRowSub {
+  font-size: 12px;
+  color: v.$color-text-secondary;
+  margin-top: 1px;
+}
+
+.statRowVal {
+  font-size: 14px;
+  font-weight: 600;
+  color: v.$color-text-primary;
+}
+
+// ── Team attendance section ───────────────────────────────────────────────────
+
+.teamCard {
+  padding: v.$space-5;
+}
+
+.teamHeader {
+  @include m.flex-between;
+  margin-bottom: v.$space-4;
+}
+
+.viewAllLink {
+  font-size: 13px;
+  color: v.$color-primary;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+
+  &:hover { text-decoration: underline; }
+}
+
+// ── Filter panel (slides from top) ───────────────────────────────────────────
+
+.filterBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1021;
+  background: rgba(15, 23, 42, 0.35);
+  animation: filterFadeIn 0.2s ease;
+}
+
+.filterBackdropClosing {
+  animation: filterFadeOut 0.25s ease forwards;
+}
+
+.filterPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 360px;
+  z-index: 1022;
+  background: v.$color-white;
+  box-shadow: -4px 0 32px rgba(15, 23, 42, 0.14);
+  display: flex;
+  flex-direction: column;
+  animation: filterSlideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filterPanelClosing {
+  animation: filterSlideOut 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.filterHeader {
+  @include m.flex-between;
+  padding: v.$space-4 v.$space-5;
+  border-bottom: 1px solid v.$color-border-default;
+  flex-shrink: 0;
+}
+
+.filterBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: v.$space-5;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-5;
+}
+
+.filterFooter {
+  padding: v.$space-4 v.$space-5;
+  border-top: 1px solid v.$color-border-default;
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$space-3;
+  flex-shrink: 0;
+}
+
+.filterSelectWrap {
+  @include m.flex-col;
+  gap: v.$space-1;
+}
+
+.filterLabel {
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$color-text-primary;
+}
+
+.filterSelect {
+  @include m.input-base;
+  padding: v.$space-2 v.$space-3;
+  height: v.$space-10;
+  cursor: pointer;
+  appearance: auto;
+}
+
+.filterCloseBtn {
+  @include m.reset-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: v.$radius-xs;
+  color: v.$color-text-secondary;
+  cursor: pointer;
+  transition: all v.$transition-fast;
+
+  &:hover {
+    background: v.$color-gray-100;
+    color: v.$color-text-primary;
+  }
+}
+
+@keyframes filterSlideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes filterSlideOut {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes filterFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes filterFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}

@@ -1,0 +1,260 @@
+.attendanceCard {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  overflow: hidden;
+
+  .punchSection {
+    flex: 1.2;
+    padding: 20px;
+
+    .header {
+      margin-bottom: 4px;
+      .todayText {
+        font-size: 11px;
+        font-weight: 500;
+        color: #94a3b8;
+        text-transform: uppercase;
+      }
+    }
+
+    .mainInfo {
+      margin-bottom: 12px;
+      .clockContainer {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 2px;
+
+        .time {
+          font-size: 36px;
+          font-weight: 700;
+          color: #1e293b;
+          letter-spacing: -0.01em;
+        }
+
+        .amPm {
+          font-size: 18px;
+          font-weight: 600;
+          color: #94a3b8;
+        }
+
+        .statusBadge {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          font-weight: 500;
+          padding: 2px 8px;
+          border-radius: 100px;
+          border: none;
+          transform: translateY(-4px);
+          margin-left: 8px;
+
+          &.clockedIn {
+            background: #eefdf3;
+            color: #16a34a;
+            .dot { background: #16a34a; }
+          }
+
+          &.clockedOut {
+            background: #fff7ed;
+            color: #ea580c;
+            .dot { background: #ea580c; }
+          }
+
+          .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .workedInfo {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 500;
+      }
+    }
+
+    .progressContainer {
+      margin-bottom: 16px;
+      .progressBar {
+        height: 4px;
+        background: #f1f5f9;
+        border-radius: 100px;
+        width: 100%;
+        overflow: hidden;
+
+        .progressFill {
+          height: 100%;
+          background: #7c3aed;
+          border-radius: 100px;
+        }
+      }
+    }
+
+    .footerActions {
+      display: flex;
+      gap: 12px;
+
+      button {
+        height: 32px;
+        padding: 0 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: fit-content;
+      }
+
+      .clockOutBtn {
+        background: #ef4444;
+        border-color: #ef4444;
+        color: white;
+
+        &:hover { background: #dc2626; }
+        
+        .btnIcon {
+          font-size: 10px;
+          border: 1.5px solid white;
+          width: 10px;
+          height: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 2px;
+        }
+      }
+
+      .clockInBtn {
+        background: #2f6df5;
+        border-color: #2f6df5;
+        color: white;
+
+        &:hover { background: #1f5fe0; }
+        
+        .btnIcon {
+          font-size: 10px;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .regulariseBtn {
+        background: #f8fafc;
+        border-color: #f1f5f9;
+        color: #334155;
+
+        &:hover { background: #f1f5f9; }
+      }
+    }
+  }
+
+  .divider {
+    width: 1px;
+    background: #f1f5f9;
+    margin: 20px 0;
+  }
+
+  .timelineSection {
+    flex: 1;
+    padding: 20px;
+
+    .timelineTitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0 0 12px 0;
+    }
+
+    .timelineList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .timelineItem {
+        display: flex;
+        gap: 12px;
+        min-height: 40px;
+
+          &.clickable {
+            cursor: pointer;
+            &:hover {
+              .label { color: #2f6df5; }
+              .iconCircle { border-color: #2f6df5; color: #2f6df5; }
+            }
+          }
+
+        .timelineIconContainer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 24px;
+
+          .iconCircle {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            
+            &.clock_in {
+              background: #eefdf3;
+              color: #16a34a;
+            }
+            &.clock_out {
+              background: #f8fafc;
+              color: #94a3b8;
+              &.completed { background: #fef2f2; color: #ef4444; }
+            }
+          }
+
+          .timelineLine {
+            width: 1.5px;
+            flex: 1;
+            background: #f1f5f9;
+            margin: 4px 0;
+          }
+        }
+
+        .timelineContent {
+          flex: 1;
+          display: flex;
+          justify-content: space-between;
+          padding-top: 2px;
+
+          .label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #1e293b;
+          }
+
+          .time {
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .attendanceCard {
+    flex-direction: column;
+    .divider { height: 1px; width: 100%; margin: 0; }
+  }
+}

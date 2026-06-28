@@ -1,0 +1,23 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { display: inline-flex; align-items: flex-start; gap: v.$space-2; cursor: pointer; user-select: none;
+  &.disabled { @include m.disabled-state; }
+}
+.input { @include m.sr-only; }
+.circle {
+  flex-shrink: 0; width: v.$space-5; height: v.$space-5; border: 2px solid v.$color-border-strong;
+  border-radius: v.$radius-full; background: v.$color-bg-surface; display: flex; align-items: center;
+  justify-content: center; transition: all v.$transition-fast;
+  .input:checked + & { border-color: v.$color-primary; }
+  .input:focus-visible + & { @include m.focus-ring; }
+}
+.dot { width: v.$space-2; height: v.$space-2; border-radius: v.$radius-full; background: v.$color-primary; transform: scale(0); transition: transform v.$transition-fast;
+  .input:checked ~ .circle & { transform: scale(1); }
+}
+.label { font-size: v.$font-size-sm; color: v.$color-text-primary; line-height: v.$line-height-normal; padding-top: 1px; }
+.group { display: flex; gap: v.$space-3;
+  &.vertical { flex-direction: column; }
+  &.horizontal { flex-direction: row; flex-wrap: wrap; }
+}
+.groupLabel { font-size: v.$font-size-sm; font-weight: v.$font-weight-medium; color: v.$color-text-primary; margin-bottom: v.$space-1; }

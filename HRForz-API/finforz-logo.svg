@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo Icon -->
+  <g>
+    <!-- Blue shape -->
+    <polygon points="15,10 25,10 35,25 25,40 15,40 5,25" fill="#2563eb"/>
+    <!-- Cyan shape -->
+    <polygon points="25,25 35,25 40,35 35,45 25,45 20,35" fill="#06b6d4"/>
+    <!-- Yellow shape -->
+    <polygon points="20,40 30,40 35,50 25,50" fill="#f59e0b"/>
+  </g>
+
+  <!-- Text: Finforz -->
+  <text x="55" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="800" fill="#0f172a">
+    <tspan>Finforz</tspan>
+  </text>
+</svg>

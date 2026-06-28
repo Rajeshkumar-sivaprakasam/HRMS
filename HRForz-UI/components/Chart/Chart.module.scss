@@ -1,0 +1,11 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.wrapper { @include m.flex-col; gap: v.$space-3; width: 100%; }
+.title { font-size: v.$font-size-sm; font-weight: v.$font-weight-semibold; color: v.$color-text-primary; text-align: center; margin: 0; }
+.svgWrapper { width: 100%; overflow: hidden; }
+.legend { display: flex; flex-wrap: wrap; gap: v.$space-2 v.$space-5; justify-content: center; padding: 0 v.$space-2; }
+.legendItem { display: flex; align-items: center; gap: v.$space-1; font-size: v.$font-size-xs; }
+.legendDot { width: 8px; height: 8px; border-radius: v.$radius-sm; flex-shrink: 0; }
+.legendLabel { color: v.$color-text-primary; font-weight: v.$font-weight-medium; }
+.legendValue { color: v.$color-text-secondary; }
