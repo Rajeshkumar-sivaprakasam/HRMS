@@ -43,12 +43,36 @@ export const authApi = {
   login: async (email: string, password: string): Promise<LoginResponse> => {
     const data = await apiService.post<LoginResponse>(API_ENDPOINTS.LOGIN, { email, password });
     if (data.response?.access_token) {
+      // Keep localStorage for existing client-side reads (role checks, etc.)
       localStorage.setItem('hrforz_token', data.response.access_token);
       localStorage.setItem('hrforz_role', data.response.role || '');
       localStorage.setItem('hrforz_employee_id', data.response.employee_id || '');
       localStorage.setItem('hrforz_work_location_id', data.response.work_location_id || '');
+
+      // Bridge the token into an httpOnly cookie so middleware + Server
+      // Components can read the session (enables server-side auth & SSR).
+      try {
+        await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: data.response.access_token,
+            role: data.response.role || '',
+            employeeId: data.response.employee_id || '',
+          }),
+        });
+      } catch {
+        // Non-fatal: client session still works via localStorage.
+      }
     }
     return data;
+  },
+  logout: async (): Promise<void> => {
+    try {
+      await fetch('/api/auth/session', { method: 'DELETE' });
+    } catch {
+      // Non-fatal: cookie may already be gone.
+    }
   },
   forgotPassword: async (email: string): Promise<any> => {
     return apiService.post(API_ENDPOINTS.FORGOT_PASSWORD, { email });

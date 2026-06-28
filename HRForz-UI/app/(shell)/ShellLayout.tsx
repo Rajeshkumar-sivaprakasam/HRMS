@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Sidebar, Navbar, Heading, Icon, Button, ToastProvider } from '@/components';
 import { apiService } from '@/app/core/services/api-service';
 import { API_ENDPOINTS } from '@/app/shared/constants/api-endpoints';
-import { notificationsApi } from '@/lib/api';
+import { notificationsApi, authApi } from '@/lib/api';
 
 const NAV_SECTIONS = [
   {
@@ -75,7 +75,10 @@ export function ShellLayout({ children }: { children: React.ReactNode }) {
     fetchUser();
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // Clear the httpOnly cookie session (server) ...
+    await authApi.logout();
+    // ... and the client-side localStorage session.
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith('hrforz_')) {
         localStorage.removeItem(key);

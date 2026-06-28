@@ -47,7 +47,12 @@ const STATUS_STYLES: Record<LeaveStatusFilter, { bg: string; text: string }> = {
 
 const HR_TABS = ['My Leaves', 'All Requests', 'Holidays'];
 
-export default function LeaveSection() {
+interface LeaveSectionProps {
+  /** Holidays fetched on the server for instant first paint (SSR seed). */
+  initialHolidays?: Holiday[];
+}
+
+export default function LeaveSection({ initialHolidays = [] }: LeaveSectionProps = {}) {
   const { addToast } = useToast();
   const { t } = useTranslation();
   const [role, setRole] = useState('employee');
@@ -57,7 +62,7 @@ export default function LeaveSection() {
   // State for employee view
   const [balances, setBalances] = useState<LeaveBalance[]>([]);
   const [requests, setRequests] = useState<LeaveRequest[]>([]);
-  const [holidays, setHolidays] = useState<Holiday[]>([]);
+  const [holidays, setHolidays] = useState<Holiday[]>(initialHolidays);
   const [statusFilter, setStatusFilter] = useState<LeaveStatusFilter>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(10);
