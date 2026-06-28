@@ -1,19 +1,38 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { Input, Checkbox, Button, Alert } from '@/components';
 import { authApi } from '@/lib/api';
 import styles from './login.module.scss';
 import Image from 'next/image';
 
+/**
+ * Submit button lives inside <form> so it can read the form's pending
+ * state via React 19's useFormStatus — no prop drilling of `loading`.
+ */
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      type="submit"
+      variant="primary"
+      fullWidth
+      size="lg"
+      loading={pending}
+      className={styles.loginBtn}
+    >
+      Log In
+    </Button>
+  );
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('hrforz_remembered_email');
@@ -23,27 +42,32 @@ export default function LoginPage() {
     }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !password) return;
-    setError(null);
-    setLoading(true);
-    try {
-      await authApi.login(email, password);
-      
-      if (rememberMe) {
-        localStorage.setItem('hrforz_remembered_email', email);
-      } else {
-        localStorage.removeItem('hrforz_remembered_email');
+  // React 19 useActionState: the action returns the error string (or null).
+  // Pending state is handled by the form and read via useFormStatus above.
+  const [error, formAction] = useActionState<string | null, FormData>(
+    async (_prev, _formData) => {
+      if (!email || !password) {
+        return 'Please enter your email and password.';
       }
+      try {
+        await authApi.login(email, password);
 
-      router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Invalid credentials. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+        if (rememberMe) {
+          localStorage.setItem('hrforz_remembered_email', email);
+        } else {
+          localStorage.removeItem('hrforz_remembered_email');
+        }
+
+        router.push('/dashboard');
+        return null;
+      } catch (err) {
+        return err instanceof Error
+          ? err.message
+          : 'Invalid credentials. Please try again.';
+      }
+    },
+    null,
+  );
 
   return (
     <div className={styles.container}>
@@ -65,9 +89,10 @@ export default function LoginPage() {
             </Alert>
           )}
 
-          <form onSubmit={handleSubmit} className={styles.form}>
+          <form action={formAction} className={styles.form}>
             <Input
               label="Email"
+              name="email"
               type="email"
               placeholder="Enter your mail address"
               value={email}
@@ -79,6 +104,7 @@ export default function LoginPage() {
 
             <Input
               label="Password"
+              name="password"
               type="password"
               placeholder="Enter password"
               value={password}
@@ -103,17 +129,7 @@ export default function LoginPage() {
               </a>
             </div>
 
-            <Button
-              type="submit"
-              variant="primary"
-              fullWidth
-              size="lg"
-              loading={loading}
-              className={styles.loginBtn}
-            >
-              Log In
-            </Button>
-
+            <SubmitButton />
           </form>
         </div>
       </div>

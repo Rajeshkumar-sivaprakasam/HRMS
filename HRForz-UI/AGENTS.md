@@ -1,9 +1,11 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
-This version uses **Next.js 16.2.4 with React 19** — breaking changes exist across routing,
+This version uses **Next.js 16.2.4 with React 19** — breaking changes exist across routing,   
 data fetching, and rendering APIs. Read `node_modules/next/dist/docs/` before writing any
 routing or layout code. Heed all deprecation notices.
+
 <!-- END:nextjs-agent-rules -->
 
 ---
@@ -19,21 +21,21 @@ routing or layout code. Heed all deprecation notices.
 
 1. [Project Overview](#1-project-overview)
 2. [Folder Structure](#2-folder-structure)
-3. [Creating Pages & Inner Pages](#3-creating-pages--inner-pages)
+3. [Creating Pages &amp; Inner Pages](#3-creating-pages--inner-pages)
 4. [Localization — MANDATORY](#4-localization--mandatory)
-5. [Colors & Design Tokens — MANDATORY](#5-colors--design-tokens--mandatory)
+5. [Colors &amp; Design Tokens — MANDATORY](#5-colors--design-tokens--mandatory)
 6. [Component Library Reference](#6-component-library-reference)
-7. [SCSS & Styling Rules](#7-scss--styling-rules)
+7. [SCSS &amp; Styling Rules](#7-scss--styling-rules)
 8. [TypeScript Rules](#8-typescript-rules)
 9. [API Integration](#9-api-integration)
 10. [CRUD Page Patterns](#10-crud-page-patterns)
 11. [Form Patterns](#11-form-patterns)
 12. [DataTable Patterns](#12-datatable-patterns)
 13. [Role-Based Access Control](#13-role-based-access-control)
-14. [Loading, Error & Empty States](#14-loading-error--empty-states)
-15. [Navigation & Sidebar](#15-navigation--sidebar)
+14. [Loading, Error &amp; Empty States](#14-loading-error--empty-states)
+15. [Navigation &amp; Sidebar](#15-navigation--sidebar)
 16. [Custom Hooks](#16-custom-hooks)
-17. [File & Naming Conventions](#17-file--naming-conventions)
+17. [File &amp; Naming Conventions](#17-file--naming-conventions)
 18. [Testing](#18-testing)
 19. [Pre-Submit Checklist](#19-pre-submit-checklist)
 
@@ -41,17 +43,17 @@ routing or layout code. Heed all deprecation notices.
 
 ## 1. Project Overview
 
-| Key            | Value                                                          |
-|----------------|----------------------------------------------------------------|
-| Framework      | Next.js 16.2.4, App Router, React 19                          |
-| Language       | TypeScript 5 (strict mode)                                    |
-| Styling        | SCSS Modules + CSS Custom Properties — **no Tailwind**        |
-| i18n           | `lib/i18n` — **every** user-facing string must use `t()`      |
-| Auth           | `localStorage`: `hrforz_token`, `hrforz_role`                 |
-| HTTP client    | Axios via `app/core/services/api-service.ts`                  |
-| Component lib  | `components/` (40+ components) — always import from `@/components` |
-| Testing        | Playwright (E2E) + Vitest (unit) + Storybook (component docs) |
-| SCSS tokens    | `styles/variables.scss` mirrored as CSS vars in `globals.css` |
+| Key           | Value                                                                   |
+| ------------- | ----------------------------------------------------------------------- |
+| Framework     | Next.js 16.2.4, App Router, React 19                                    |
+| Language      | TypeScript 5 (strict mode)                                              |
+| Styling       | SCSS Modules + CSS Custom Properties —**no Tailwind**            |
+| i18n          | `lib/i18n` — **every** user-facing string must use `t()`     |
+| Auth          | `localStorage`: `hrforz_token`, `hrforz_role`                     |
+| HTTP client   | Axios via`app/core/services/api-service.ts`                           |
+| Component lib | `components/` (40+ components) — always import from `@/components` |
+| Testing       | Playwright (E2E) + Vitest (unit) + Storybook (component docs)           |
+| SCSS tokens   | `styles/variables.scss` mirrored as CSS vars in `globals.css`       |
 
 ---
 
@@ -105,6 +107,7 @@ tests/                        ← Playwright E2E tests
 ```
 
 **Path aliases (tsconfig.json):**
+
 ```
 @/components  → components/
 @/lib         → lib/
@@ -121,6 +124,7 @@ All authenticated pages go under `app/(shell)/<feature>/page.tsx`.
 RoleGuard + ShellLayout are applied automatically by `app/(shell)/layout.tsx`.
 
 **Standard page hierarchy for a feature:**
+
 ```
 app/(shell)/employees/
   page.tsx              ← list all employees
@@ -157,6 +161,7 @@ export default function Page() {
 ```
 
 **Rules for page.tsx:**
+
 - Always start with `'use client'`.
 - The file must only contain the dynamic import and default export — nothing else.
 - Use `ssr: false` on every dynamic import inside `(shell)`.
@@ -364,14 +369,13 @@ setLocale('en');   // switches to English
 }
 ```
 
-
 ### 4.3 Rules
 
-| BAD | GOOD |
-|-----|------|
-| `<Button>Save</Button>` | `<Button>{t('common.save')}</Button>` |
-| `placeholder="Search..."` | `placeholder={t('common.search')}` |
-| `title="Are you sure?"` | `title={t('common.confirm')}` |
+| BAD                              | GOOD                                      |
+| -------------------------------- | ----------------------------------------- |
+| `<Button>Save</Button>`        | `<Button>{t('common.save')}</Button>`   |
+| `placeholder="Search..."`      | `placeholder={t('common.search')}`      |
+| `title="Are you sure?"`        | `title={t('common.confirm')}`           |
 | `toast({ message: 'Saved!' })` | `toast({ message: t('common.saved') })` |
 
 - Add to `en.json` before using any new key.
@@ -555,19 +559,19 @@ $z-tooltip:  1090;
 
 **Relative path by file location:**
 
-| File location | `@use` path |
-|---|---|
-| `components/Foo/Foo.module.scss` | `@use '../../styles/variables' as v` |
-| `app/sections/*.module.scss` | `@use '../../styles/variables' as v` |
+| File location                                    | `@use` path                                |
+| ------------------------------------------------ | -------------------------------------------- |
+| `components/Foo/Foo.module.scss`               | `@use '../../styles/variables' as v`       |
+| `app/sections/*.module.scss`                   | `@use '../../styles/variables' as v`       |
 | `app/(shell)/<feat>/_components/*.module.scss` | `@use '../../../../styles/variables' as v` |
 
-| BAD | GOOD |
-|-----|------|
-| `color: #2f6df5` | `color: $color-primary` |
-| `padding: 16px` | `padding: $space-4` |
-| `border-radius: 8px` | `border-radius: $radius-sm` |
-| `style={{ color: '#333' }}` | `className={styles.text}` |
-| `style={{ padding: 16 }}` | `className={styles.container}` |
+| BAD                           | GOOD                             |
+| ----------------------------- | -------------------------------- |
+| `color: #2f6df5`            | `color: $color-primary`        |
+| `padding: 16px`             | `padding: $space-4`            |
+| `border-radius: 8px`        | `border-radius: $radius-sm`    |
+| `style={{ color: '#333' }}` | `className={styles.text}`      |
+| `style={{ padding: 16 }}`   | `className={styles.container}` |
 
 Dark mode is automatic — `globals.css` uses `@media (prefers-color-scheme: dark)`.
 Never add dark selectors manually in component modules.
@@ -725,16 +729,16 @@ import { Typography } from '@/components';
 
 **Variant → default HTML tag:**
 
-| Variant | Tag | Use for |
-|---------|-----|---------|
-| `h1`–`h6` | `h1`–`h6` | Page, section, card titles |
-| `body1` | `p` | Standard paragraphs |
-| `body2` | `p` | Secondary / smaller paragraphs |
-| `caption` | `span` | Meta info, timestamps, counts |
-| `overline` | `span` | Section labels, category tags |
-| `lead` | `p` | Intro / subtitle paragraphs |
-| `code` | `code` | Inline code snippets |
-| `blockquote` | `blockquote` | Quoted text |
+| Variant        | Tag            | Use for                        |
+| -------------- | -------------- | ------------------------------ |
+| `h1`–`h6` | `h1`–`h6` | Page, section, card titles     |
+| `body1`      | `p`          | Standard paragraphs            |
+| `body2`      | `p`          | Secondary / smaller paragraphs |
+| `caption`    | `span`       | Meta info, timestamps, counts  |
+| `overline`   | `span`       | Section labels, category tags  |
+| `lead`       | `p`          | Intro / subtitle paragraphs    |
+| `code`       | `code`       | Inline code snippets           |
+| `blockquote` | `blockquote` | Quoted text                    |
 
 **Color values:** `'primary'` · `'secondary'` · `'success'` · `'warning'` · `'danger'` · `'white'`
 
@@ -1237,14 +1241,14 @@ export interface UpdateEmployeeDto extends Partial<CreateEmployeeDto> {}
 
 ### 8.3 Rules
 
-| Rule | Detail |
-|------|--------|
-| No `any` | Use `unknown` + type narrowing, or define a proper type |
-| No implicit `any` | Enable `strict: true` in `tsconfig.json` |
-| Exports | Named exports for components; default export only for `page.tsx` |
-| Co-location | Keep types in the same file until used in 3+ files, then move to `types/` |
-| API responses | Always type the expected shape — never access `.data` without a type |
-| Union literals | Use string union literals for status, roles, variants — never `string` |
+| Rule               | Detail                                                                     |
+| ------------------ | -------------------------------------------------------------------------- |
+| No`any`          | Use`unknown` + type narrowing, or define a proper type                   |
+| No implicit`any` | Enable`strict: true` in `tsconfig.json`                                |
+| Exports            | Named exports for components; default export only for`page.tsx`          |
+| Co-location        | Keep types in the same file until used in 3+ files, then move to`types/` |
+| API responses      | Always type the expected shape — never access`.data` without a type     |
+| Union literals     | Use string union literals for status, roles, variants — never`string`   |
 
 ---
 
@@ -1253,6 +1257,7 @@ export interface UpdateEmployeeDto extends Partial<CreateEmployeeDto> {}
 ### 9.1 HTTP client
 
 `app/core/services/http-client.ts` — Axios instance with:
+
 - `baseURL` from `process.env.NEXT_PUBLIC_API_URL`
 - Request interceptor: injects `Authorization: Bearer <hrforz_token>`
 - Response interceptor: redirects to `/login` on 401
@@ -1951,6 +1956,7 @@ const NAV_SECTIONS = [
 ```
 
 Rules:
+
 - Label must be a `t()` call.
 - Icon must use `<Icon name="..." />` — check `ICON_NAMES` for valid names.
 - Add `nav.new_feature` to `en.json`.
@@ -2007,22 +2013,22 @@ const {
 
 ## 17. File & Naming Conventions
 
-| What | Convention | Example |
-|------|-----------|---------|
-| Page files | `page.tsx` | `app/(shell)/leave/page.tsx` |
-| Section files | `PascalCase + Section` | `LeaveListSection.tsx` |
-| Feature-local components | `_components/PascalCase` | `_components/LeaveCard.tsx` |
-| SCSS modules | Match component name | `LeaveCard.module.scss` |
-| API service files | `kebab-case-api.ts` | `leave-api.ts` |
-| Shared hooks | `use + PascalCase` | `useMultiStepForm.ts` |
-| Type/interface files | `kebab-case.ts` | `leave.ts` (exports `LeaveRequest`) |
-| Storybook stories | `ComponentName.stories.tsx` | `Button.stories.tsx` |
-| E2E tests | `kebab-case.spec.ts` | `employees-list.spec.ts` |
-| Constants | `SCREAMING_SNAKE` for values | `STATUS_VARIANT`, `API_ENDPOINTS` |
-| React components | `PascalCase` | `EmployeeCard`, `LeaveFormSection` |
-| Hooks | `camelCase` prefixed with `use` | `useTableEngine`, `useMultiStepForm` |
-| Event handlers | `handle + PascalCase` | `handleDelete`, `handleSubmit` |
-| Boolean props/vars | `is/has/can + PascalCase` | `isLoading`, `hasError`, `canDelete` |
+| What                     | Convention                          | Example                                    |
+| ------------------------ | ----------------------------------- | ------------------------------------------ |
+| Page files               | `page.tsx`                        | `app/(shell)/leave/page.tsx`             |
+| Section files            | `PascalCase + Section`            | `LeaveListSection.tsx`                   |
+| Feature-local components | `_components/PascalCase`          | `_components/LeaveCard.tsx`              |
+| SCSS modules             | Match component name                | `LeaveCard.module.scss`                  |
+| API service files        | `kebab-case-api.ts`               | `leave-api.ts`                           |
+| Shared hooks             | `use + PascalCase`                | `useMultiStepForm.ts`                    |
+| Type/interface files     | `kebab-case.ts`                   | `leave.ts` (exports `LeaveRequest`)    |
+| Storybook stories        | `ComponentName.stories.tsx`       | `Button.stories.tsx`                     |
+| E2E tests                | `kebab-case.spec.ts`              | `employees-list.spec.ts`                 |
+| Constants                | `SCREAMING_SNAKE` for values      | `STATUS_VARIANT`, `API_ENDPOINTS`      |
+| React components         | `PascalCase`                      | `EmployeeCard`, `LeaveFormSection`     |
+| Hooks                    | `camelCase` prefixed with `use` | `useTableEngine`, `useMultiStepForm`   |
+| Event handlers           | `handle + PascalCase`             | `handleDelete`, `handleSubmit`         |
+| Boolean props/vars       | `is/has/can + PascalCase`         | `isLoading`, `hasError`, `canDelete` |
 
 ---
 
@@ -2136,23 +2142,27 @@ Run: `npm run storybook`
 Complete every item before opening a pull request or marking a task done.
 
 ### Structure
+
 - [ ] Page lives at `app/(shell)/<feature>/page.tsx`
 - [ ] `page.tsx` contains only `'use client'`, `dynamic` import, and default export
 - [ ] `ssr: false` and `<Skeleton>` fallback on every `dynamic` import
 - [ ] Feature-local components are in `_components/`, not in `sections/` or `components/`
 
 ### Localization
+
 - [ ] Every user-visible string uses `t('namespace.key')` — zero hard-coded strings
 - [ ] All new keys added to `en.json`
 - [ ] `common.*` and `status.*` keys reused where applicable
 
 ### Design Tokens
+
 - [ ] Zero raw hex color values in SCSS or inline styles
 - [ ] Zero raw `px` spacing values — all use `$space-*` tokens
 - [ ] Zero raw `border-radius` pixel values — all use `$radius-*` tokens
 - [ ] No inline `style={{ color, background, padding, margin }}` for static values
 
 ### Components
+
 - [ ] All UI components imported from `@/components` — nothing re-implemented
 - [ ] `<Spinner />` or `<Skeleton>` shown during every async load
 - [ ] `<Alert variant="error">` shown on every fetch/submit failure
@@ -2161,25 +2171,30 @@ Complete every item before opening a pull request or marking a task done.
 - [ ] Toast shown after every successful create/update/delete
 
 ### SCSS
+
 - [ ] Every component has a `.module.scss` file
 - [ ] First line of every module is `@use 'variables' as *;`
 - [ ] No `!important` anywhere
 - [ ] No global SCSS imported into component modules
 
 ### TypeScript
+
 - [ ] No `any` — use `unknown` or a typed interface
 - [ ] All component props have an explicit `interface` or `type`
 - [ ] Named exports for all components; default export only for `page.tsx`
 
 ### API
+
 - [ ] All HTTP calls use `app/core/services/api-service.ts`
 - [ ] All endpoint strings registered in `api-endpoints.ts`
 - [ ] Each feature has its own service file in `app/shared/services/`
 
 ### Navigation
+
 - [ ] New routes added to `ShellLayout.tsx` with `t()` label and `ICON_NAMES` icon
 
 ### Quality Gates
+
 - [ ] `npm run type-check` → 0 errors
 - [ ] `npm run lint` → 0 errors or warnings
 - [ ] Storybook story added for any new shared component

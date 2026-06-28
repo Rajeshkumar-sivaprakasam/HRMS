@@ -1,34 +1,29 @@
-import httpClient from './http-client';
-import { AxiosRequestConfig } from 'axios';
+import { httpRequest } from './http-client';
 
+/**
+ * Thin, typed wrapper over the fetch-based httpRequest.
+ * Public method signatures are intentionally unchanged from the previous
+ * Axios implementation so every existing caller keeps working.
+ */
 class ApiService {
-  public async get<T>(url: string, params?: Record<string, any>, headers?: Record<string, string>): Promise<T> {
-    return httpClient.get<T, T>(url, { params, headers });
+  public get<T>(url: string, params?: Record<string, unknown>, headers?: Record<string, string>): Promise<T> {
+    return httpRequest<T>('GET', url, undefined, { params, headers });
   }
 
-  public async post<T>(url: string, body: any, headers?: Record<string, string>, signal?: AbortSignal): Promise<T> {
-    const config: AxiosRequestConfig = { headers };
-    if (signal) config.signal = signal;
-    return httpClient.post<T, T>(url, body, config);
+  public post<T>(url: string, body: unknown, headers?: Record<string, string>, signal?: AbortSignal): Promise<T> {
+    return httpRequest<T>('POST', url, body, { headers, signal });
   }
 
-  public async put<T>(url: string, body: any, headers?: Record<string, string>): Promise<T> {
-    const isFormData = typeof window !== 'undefined' && body instanceof FormData;
-    const config: AxiosRequestConfig = { 
-      headers: {
-        ...headers,
-        ...(isFormData ? { 'Content-Type': 'multipart/form-data' } : {})
-      }
-    };
-    return httpClient.put<T, T>(url, body, config);
+  public put<T>(url: string, body: unknown, headers?: Record<string, string>): Promise<T> {
+    return httpRequest<T>('PUT', url, body, { headers });
   }
 
-  public async patch<T>(url: string, body: any, headers?: Record<string, string>): Promise<T> {
-    return httpClient.patch<T, T>(url, body, { headers });
+  public patch<T>(url: string, body: unknown, headers?: Record<string, string>): Promise<T> {
+    return httpRequest<T>('PATCH', url, body, { headers });
   }
 
-  public async delete<T>(url: string, headers?: Record<string, string>): Promise<T> {
-    return httpClient.delete<T, T>(url, { headers });
+  public delete<T>(url: string, headers?: Record<string, string>): Promise<T> {
+    return httpRequest<T>('DELETE', url, undefined, { headers });
   }
 }
 
